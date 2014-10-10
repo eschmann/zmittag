@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en" ng-app="zmittagApp">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>zmittag</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/css/normalize.css">
+        <link rel="stylesheet" href="/css/main.css">
+        <link rel="stylesheet" href="/css/style.css">
+        <script src="/bower_components/angular/angular.js"></script>
+        <script src="/bower_components/angular-route/angular-route.js"></script>
+        <script src="/js/scripts.js"></script>
+        <!-- Place favicon.ico and apple-touch-icon(s) in the root directory -->
+    </head>
+    <body ng-controller="mainController">
+        <header id="header">
+            <span>zMittag</span>
+            <gravatar>
+        </header>
+        <main id="main">
+            <div class="item" ng-repeat="d in destinations">
+                {{ d.name }}
+            </div>
+        </main>
+    </body>
+</html>

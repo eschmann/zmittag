@@ -1,0 +1,36 @@
+@import url('lib.less');
+@import url('config.less');
+
+body {
+    background-color: @background; 
+}
+
+@header-height: 60px;
+@padding: 15px;
+
+#header {
+    .flex-display();
+    padding: 0 @padding;
+    background-color: @background-white;
+    border-bottom: 1px solid #ececec;
+    height: @header-height;
+    line-height: @header-height;
+    .justify-content(space-between);
+
+    .user img {
+        .border-radius(50%);
+    }
+}
+
+#main {
+    padding: @padding;
+    .flex-display();
+    .flex-direction(column);
+
+    .item {
+        background-color: @background-white;
+        margin-bottom: @padding;
+        padding: 6px;
+    }
+}
+
