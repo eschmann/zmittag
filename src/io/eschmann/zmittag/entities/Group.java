@@ -1,29 +1,29 @@
 package io.eschmann.zmittag.entities;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
-import org.bson.types.ObjectId;
+import org.apache.commons.lang3.StringUtils;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 
-@Entity("groups")
+@Entity(value = "groups", noClassnameStored = true)
 public class Group {
 
 	@Id
-	private ObjectId id;
+	private String id;
 	private String name;
-	private List<String> members;
-	
-	public Group(){
-		this.members = new ArrayList<String>();
+	private Set<String> members;
+
+	public Group() {
+		this.members = new HashSet<String>();
 	}
 
-	public ObjectId getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(ObjectId id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -35,12 +35,20 @@ public class Group {
 		this.name = name;
 	}
 
-	public List<String> getMembers() {
+	public Set<String> getMembers() {
 		return members;
 	}
 
-	public void setMembers(List<String> members) {
+	public void setMembers(Set<String> members) {
+		if (members == null) {
+			this.members = new HashSet<String>();
+		}
 		this.members = members;
 	}
 
+	public void addMember(final String name) {
+		if (StringUtils.isNotBlank(name)) {
+			this.members.add(name);
+		}
+	}
 }

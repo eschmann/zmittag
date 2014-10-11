@@ -1,0 +1,19 @@
+package io.eschmann.zmittag.persistence;
+
+import io.eschmann.zmittag.entities.Member;
+
+import org.mongodb.morphia.dao.BasicDAO;
+
+public class MemberDao extends BasicDAO<Member, String> {
+
+	private ConnectionManager connectionManager;
+
+	public MemberDao(final ConnectionManager connectionManager) {
+		super(Member.class, connectionManager.getDataStore());
+		this.connectionManager = connectionManager;
+	}
+
+	public Member findOneMember(final String id) {
+		return findOne("_id", this.connectionManager.getObjectId(id));
+	}
+}

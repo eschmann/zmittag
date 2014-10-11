@@ -4,6 +4,7 @@ import io.eschmann.zmittag.Constants;
 
 import java.net.UnknownHostException;
 
+import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 
@@ -45,5 +46,7 @@ public class ConnectionManager {
 		this.dataStore = dataStore;
 	}
 		
-	
+	public ObjectId getObjectId(final String id) {
+		return new ObjectId(id);
+	}
 }
