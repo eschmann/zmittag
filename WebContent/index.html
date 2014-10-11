@@ -9,20 +9,35 @@
         <link rel="stylesheet" href="/css/normalize.css">
         <link rel="stylesheet" href="/css/main.css">
         <link rel="stylesheet" href="/css/style.css">
+        <!-- angular -->
         <script src="/bower_components/angular/angular.js"></script>
         <script src="/bower_components/angular-route/angular-route.js"></script>
+        <!-- google maps -->
+        <script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>
+        <script src='/bower_components/lodash/dist/lodash.min.js'></script>
+        <script src='/bower_components/bluebird/js/browser/bluebird.js'></script>
+        <script src="/bower_components/angular-google-maps/dist/angular-google-maps.js"></script>
+        <!-- md5 -->
+        <script src="/bower_components/angular-md5/angular-md5.js"></script>
         <script src="/js/scripts.js"></script>
+        <!-- font and icons -->
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+        <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700' rel='stylesheet' type='text/css'>
         <!-- Place favicon.ico and apple-touch-icon(s) in the root directory -->
     </head>
     <body ng-controller="mainController">
         <header id="header">
-            <span>zMittag</span>
+            <h1>zMittag</h1>
             <gravatar>
         </header>
         <main id="main">
             <div class="item" ng-repeat="d in destinations">
                 {{ d.name }}
             </div>
+            <div class="item map">
+                <ui-gmap-google-map center="map.center" zoom="map.zoom"></ui-gmap-google-map>
+            </div>
+            <a href="#" class="btn btn-green"><i class="fa fa-plus"></i> New Suggestion</a>
         </main>
     </body>
 </html>

@@ -3,6 +3,7 @@
 
 body {
     background-color: @background; 
+    background: url('/img/kindajean.png');
 }
 
 @header-height: 60px;
@@ -17,6 +18,11 @@ body {
     line-height: @header-height;
     .justify-content(space-between);
 
+    h1 {
+        margin: 0;
+        font-weight: 100;
+    }
+
     .user img {
         .border-radius(50%);
     }
@@ -30,7 +36,26 @@ body {
     .item {
         background-color: @background-white;
         margin-bottom: @padding;
+        .border-radius(3px);
+        .drop-shadow();
         padding: 6px;
+        .transition();
+
+        &.map {
+            padding: 0;
+        }
     }
+
+    .btn {
+        &.btn-green {
+            display: inline-block;
+            background-color: #1b926c;
+            color: white;
+            padding: 6px 9px;
+            text-decoration: none;
+        }
+    }
+
+    .angular-google-map-container { height: 400px; }
 }
 
