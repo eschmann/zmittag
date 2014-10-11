@@ -1,0 +1,132 @@
+body,
+material-tabs > .tabs-content {
+  background: url('/img/kindajean.png');
+}
+#header .user img {
+  border-radius: 50%;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+}
+#main {
+  margin: 0 auto;
+  max-width: 768px;
+}
+.badge {
+  display: inline-block;
+  min-width: 10px;
+  padding: 3px 7px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  color: white;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  background-color: #777777;
+  border-radius: 10px;
+}
+material-whiteframe.info {
+  background: white;
+  margin: 20px 15px;
+  padding: 20px;
+  color: #0085ff;
+  background-color: #f2f9ff;
+}
+material-card {
+  position: relative;
+}
+material-card h2,
+material-card p {
+  margin: 0;
+}
+material-card .user-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-top: 15px;
+}
+material-card .user-list:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+material-card .user-list li {
+  float: left;
+  text-align: center;
+  min-width: 70px;
+  padding: 5px 2px;
+}
+material-card .user-list li img {
+  border-radius: 50%;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+}
+material-card .joined-icon {
+  display: none;
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  font-size: 24px;
+  padding: 0;
+  text-align: center;
+  right: 3px;
+  top: 3px;
+  color: #259b00;
+}
+material-card.joined {
+  border: 3px solid #259b00;
+}
+material-card.joined .joined-icon {
+  display: block;
+}
+material-card .join-group {
+  margin-top: 15px;
+  width: 100%;
+  padding: 7px 15px;
+}
+material-card.form {
+  padding: 20px;
+}
+material-card.form p {
+  padding: 0;
+  margin: 0;
+}
+material-card.form.error {
+  background: red !important;
+}
+material-tabs material-tabs-ink-bar {
+  background: #3f51b5;
+  height: 3px;
+}
+material-tabs .tabs-content {
+  margin-top: 7px;
+}
+material-input-group label {
+  font-size: 18px;
+}
+material-input-group input {
+  font-size: 24px;
+  width: 100%;
+}
+.angular-google-map-container {
+  height: 400px;
+}
+.tabs-content .card: {
+  background: white !important;
+  background-color: white !important;
+  background: rgba(255, 255, 255, 0.85);
+}
+.recommendations {
+  margin: 20px 15px;
+  text-transform: uppercase;
+  color: #4285f4;
+  padding-bottom: 5px;
+  border-bottom: 2px solid #4285f4;
+}
+#suggest .search {
+  padding: 0px 15px;
+}
+#suggest .search material-input-group {
+  margin: 0;
+}
