@@ -7,6 +7,25 @@ material-tabs > .tabs-content {
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
 }
+material-card {
+  -webkit-transition: all ease-in-out 0.2s;
+  -moz-transition: all ease-in-out 0.2s;
+  -o-transition: all ease-in-out 0.2s;
+  transition: all ease-in-out 0.2s;
+}
+material-card.hide-animation {
+  opacity: 0;
+}
+material-card.form {
+  padding: 20px;
+}
+material-card.form p {
+  padding: 0;
+  margin: 0;
+}
+material-card.form.error {
+  background: red !important;
+}
 material-tabs material-tabs-ink-bar {
   background: #3f51b5;
   height: 3px;
@@ -22,6 +41,7 @@ material-input-group input {
   height: 400px;
 }
 .tabs-content .card: {
-  background: white;
+  background: white !important;
+  background-color: white !important;
   background: rgba(255, 255, 255, 0.85);
 }

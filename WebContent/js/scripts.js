@@ -3,10 +3,16 @@ var zmittagApp = angular.module('zmittagApp', [
     'google-maps'.ns(),
     'ngAnimate',
     'ngAria',
-    'ngMaterial'
+    'ngMaterial',
+    'LocalStorageModule'
 ]);
 
-zmittagApp.controller('mainController', function($scope, $http, md5) {
+zmittagApp.config(function (localStorageServiceProvider) {
+    localStorageServiceProvider.setPrefix('zmittagApp');
+    localStorageServiceProvider.setStorageCookie(0, '/');
+});
+
+zmittagApp.controller('mainController', function($scope, $http, md5, localStorageService) {
     $scope.api = "http://172.27.9.66:8080/Zmittag/api/";
 
     $scope.destinations = [];
@@ -14,16 +20,59 @@ zmittagApp.controller('mainController', function($scope, $http, md5) {
         $scope.destinations = data;
     });
 
+    $scope.user = {
+        "id": null,
+        "name": null,
+        "email": '',
+        "submitted": false
+    };
+
+    if(localStorageService.isSupported) {
+        $scope.user = {
+            "id": localStorageService.get('user.id'),
+            "name": localStorageService.get('user.name'),
+            "email": localStorageService.get('user.email') == null ? '' : localStorageService.get('user.email'),
+            "submitted": localStorageService.get('user.submitted') == null ? false : true
+        };
+    }
+
     $scope.data = {
       maxIndex : 1,
       selectedIndex : 0,
       locked : true
     };
 
-    $scope.user = {
-        "name": null,
-        "email": null,
-        "hash": null
+    
+
+    $scope.isValidUser = function() {
+        if ($scope.user.name != null && $scope.isValidEmail($scope.user.email)) {
+            return true;
+        };
+
+        return false;
+    }
+
+    $scope.isValidEmail = function(email) {
+        return /^([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22))*\x40([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d))*$/.test( email ); 
+    };
+
+    $scope.userIsSubmitted = function() {
+        return $scope.user.submitted;
+    }
+
+    $scope.submitUserCredentials = function() {
+        if ($scope.isValidEmail) {
+            localStorageService.set('user.id', $scope.user.id);
+            localStorageService.set('user.name', $scope.user.name);
+            localStorageService.set('user.email', $scope.user.email);
+            localStorageService.set('user.submitted', true);
+            $scope.user.submitted = true;
+        };
+        console.log($scope.user);
+    }
+
+    $scope.md5 = function(value) {
+        return md5.createHash(value);
     };
 
     $scope.map = {
@@ -50,7 +99,7 @@ zmittagApp.directive('gravatar', function() {
         restrict: 'AE',
         template: 
             '<span class="user">' +
-                '<img src="http://www.gravatar.com/avatar/{{ user.hash }}?s=40" alt="{{ user.name }}">' +
+                '<img src="http://www.gravatar.com/avatar/{{ md5(user.email) }}?s=40" alt="{{ user.name }}">' +
             '</span>',
         replace: true
     };

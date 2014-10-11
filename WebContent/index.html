@@ -24,6 +24,9 @@
         <script src="/bower_components/angular-google-maps/dist/angular-google-maps.js"></script>
         <!-- md5 -->
         <script src="/bower_components/angular-md5/angular-md5.js"></script>
+        <!-- local storage -->
+        <script src="/bower_components/angular-local-storage/dist/angular-local-storage.min.js"></script>
+        <!-- angular app -->
         <script src="/js/scripts.js"></script>
         <!-- font and icons -->
         <!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"> -->
@@ -41,7 +44,7 @@
 
                 <material-tabs selected="data.selectedIndex" center>
                     <material-tab label="JOIN">
-                        <material-card class="card" ng-repeat="d in destinations">
+                        <material-card class="card" ng-repeat="d in destinations" style="background: white;">
                             <div class="material-card-image">
                                 Test
                             </div>
@@ -50,12 +53,17 @@
                         </material-card>
                     </material-tab>
                     <material-tab label="SUGGEST">
-                        <form style="padding: 20px;">
-                            <tf-float label="Name" value="user.name"></tf-float>
-                            <tf-float label="Email" value="user.email"></tf-float>
-                            <material-button class="material-theme-light-blue">Save</material-button>
-                        </form>
-                        <material-card class="map">
+                        <material-card class="form" style="background: white;" ng-hide="!isValidUser" ng-if="!userIsSubmitted()">
+                            <p>Please provide your name and email address:</p>
+                            <form>
+                                <tf-float label="Name" value="user.name" ng-model="user.name" ng-model-onblur></tf-float>
+                                <tf-float label="Email" value="user.email" ng-model="user.email" ng-model-options="{updateOn: 'blur'}"></tf-float>
+                                <material-button class="material-theme-light-blue" ng-click="submitUserCredentials()">
+                                    Save
+                                </material-button>
+                            </form>
+                        </material-card>
+                        <material-card class="map" style="background: white;">
                             <ui-gmap-google-map center="map.center" zoom="map.zoom"></ui-gmap-google-map>
                         </material-card>
                     </material-tab>

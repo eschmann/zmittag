@@ -14,6 +14,21 @@ body, material-tabs > .tabs-content {
     }
 }
 
+material-card {
+    &.form {
+        padding: 20px;
+
+        p {
+            padding: 0;
+            margin: 0;
+        }
+
+        &.error {
+            background: red !important;
+        }
+    }
+}
+
 material-tabs {
     material-tabs-ink-bar {
         background: #3f51b5;
@@ -22,10 +37,7 @@ material-tabs {
 }
 
 material-input-group {
-    label {
-        font-size: 18px;
-    }
-
+    label { font-size: 18px; }
     input {
         font-size: 24px;
         width: 100%;
@@ -45,6 +57,7 @@ material-input-group {
 .angular-google-map-container { height: 400px; }
 
 .tabs-content .card: {
-    background: white;
+    background: white !important;
+    background-color: white !important;
     background: rgba(255,255,255,0.85);
 }
