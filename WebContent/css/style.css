@@ -7,14 +7,54 @@ material-tabs > .tabs-content {
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
 }
-material-card {
-  -webkit-transition: all ease-in-out 0.2s;
-  -moz-transition: all ease-in-out 0.2s;
-  -o-transition: all ease-in-out 0.2s;
-  transition: all ease-in-out 0.2s;
+.badge {
+  display: inline-block;
+  min-width: 10px;
+  padding: 3px 7px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  color: white;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  background-color: #777777;
+  border-radius: 10px;
 }
-material-card.hide-animation {
-  opacity: 0;
+material-whiteframe.info {
+  background: white;
+  margin: 20px 15px;
+  padding: 20px;
+  color: #0085ff;
+  background-color: #f2f9ff;
+}
+material-card h2 {
+  margin: 0;
+}
+material-card .user-list {
+  display: none;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+material-card .user-list:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+material-card .user-list li {
+  float: left;
+  text-align: center;
+  width: 70px;
+  padding: 5px 2px;
+}
+material-card .user-list li img {
+  border-radius: 50%;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+}
+material-card.active .user-list {
+  display: block;
 }
 material-card.form {
   padding: 20px;
@@ -44,4 +84,11 @@ material-input-group input {
   background: white !important;
   background-color: white !important;
   background: rgba(255, 255, 255, 0.85);
+}
+.recommendations {
+  margin: 20px 15px;
+  text-transform: uppercase;
+  color: #4285f4;
+  padding-bottom: 5px;
+  border-bottom: 2px solid #4285f4;
 }

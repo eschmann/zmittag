@@ -44,15 +44,6 @@
 
                 <material-tabs selected="data.selectedIndex" center>
                     <material-tab label="JOIN">
-                        <material-card class="card" ng-repeat="d in destinations" style="background: white;">
-                            <div class="material-card-image">
-                                Test
-                            </div>
-                            <h2>{{ d.name }}</h2>
-                            <p>{{ d.id }}</p>
-                        </material-card>
-                    </material-tab>
-                    <material-tab label="SUGGEST">
                         <material-card class="form" style="background: white;" ng-hide="!isValidUser" ng-if="!userIsSubmitted()">
                             <p>Please provide your name and email address:</p>
                             <form>
@@ -63,6 +54,22 @@
                                 </material-button>
                             </form>
                         </material-card>
+                        <material-card class="card" ng-repeat="d in destinations" style="background: white;" ng-class="{ active: isActive(d.id)}" ng-click="setActive(d.id)">
+                            <h2>{{ d.name }} <span class="badge">{{ d.memberList.length > 0 ? d.memberList.length : 0 }}</span></h2>
+                            <p>{{ d.id }}</p>
+                            <ul class="user-list" ng-if="isActive(d.id)">
+                                <li ng-repeat="u in d.memberList">
+                                    <img src="http://www.gravatar.com/avatar/{{ md5(u.name) }}?s=40" alt=""><br>
+                                    {{ u.name }}
+                                </li>
+                            </ul>
+                        </material-card>
+                        <material-whiteframe class="info" layout ng-if="destinations.length == 0" layout-align="center center">
+                            <span>No suggestions, yet. Be the first one!</span>
+                        </material-whiteframe>
+                        <h3 class="recommendations">Recommendations:</h3>
+                    </material-tab>
+                    <material-tab label="SUGGEST">
                         <material-card class="map" style="background: white;">
                             <ui-gmap-google-map center="map.center" zoom="map.zoom"></ui-gmap-google-map>
                         </material-card>

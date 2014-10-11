@@ -42,7 +42,16 @@ zmittagApp.controller('mainController', function($scope, $http, md5, localStorag
       locked : true
     };
 
-    
+    $scope.isActiveValue = null;
+
+    $scope.setActive = function(id) {
+        $scope.isActiveValue == id;
+    };
+
+    $scope.isActive = function(id) {
+        //console.log(id);
+        return id == $scope.isActiveValue ;
+    };
 
     $scope.isValidUser = function() {
         if ($scope.user.name != null && $scope.isValidEmail($scope.user.email)) {

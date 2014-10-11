@@ -14,7 +14,57 @@ body, material-tabs > .tabs-content {
     }
 }
 
+.badge {
+    display: inline-block;
+    min-width: 10px;
+    padding: 3px 7px;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    background-color: #777;
+    border-radius: 10px;
+}
+
+material-whiteframe.info {
+    background: #fff;
+    margin: 20px 15px;
+    padding: 20px;
+    color: rgb(0, 133, 255);
+    background-color: rgb(242, 249, 255);
+}
+
 material-card {
+    h2 {
+        margin: 0;
+    }
+
+    .user-list {
+        display: none;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        .clearfix();
+
+        li {
+            float: left;
+            text-align: center;
+            width: 70px;
+            padding: 5px 2px;
+
+            img {
+                .border-radius(50%);
+            }
+        }
+    }
+
+    &.active .user-list {
+        display: block;
+    }
+
     &.form {
         padding: 20px;
 
@@ -42,16 +92,6 @@ material-input-group {
         font-size: 24px;
         width: 100%;
     }
-
-    // &.material-input-has-value {
-    //     label {
-    //         color: @blue-light;
-    //     }
-
-    //     input[type="text"]:focus {
-    //         border-color: @blue-light;
-    //     }
-    // }
 }
 
 .angular-google-map-container { height: 400px; }
@@ -60,4 +100,12 @@ material-input-group {
     background: white !important;
     background-color: white !important;
     background: rgba(255,255,255,0.85);
+}
+
+.recommendations {
+    margin: 20px 15px;
+    text-transform: uppercase;
+    color: @blue-light;
+    padding-bottom: 5px;
+    border-bottom: 2px solid @blue-light;
 }
