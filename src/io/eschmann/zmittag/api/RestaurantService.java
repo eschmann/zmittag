@@ -54,6 +54,15 @@ public class RestaurantService {
 				.entity(ServiceHelper.convertToJson(restaurants)).build();
 	}
 
+	@GET
+	@Path("ensureTag")
+	public Response ensureTag(PostedRestaurant postedRestaurant) {
+		final List<Restaurant> foundRestaurants = this.restaurantDao
+				.findByTag(postedRestaurant.getSearchTag());
+		return ServiceHelper.createOkResponseBuilder()
+				.entity(ServiceHelper.convertToJson(foundRestaurants)).build();
+	}
+
 	@POST
 	@Path("add")
 	public Response add(PostedRestaurant newRestaurant) {

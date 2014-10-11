@@ -31,6 +31,12 @@ public class RestaurantDao extends BasicDAO<Restaurant, String> {
 		return findOne("name",name);
 	}
 	
+	public List<Restaurant> findByTag(final String searchTag) {
+		final Query<Restaurant> query = createQuery().field("tags").contains(searchTag);
+		final List<Restaurant> foundRestaurants = find(query).asList();
+		return foundRestaurants;
+	}
+	
 	public UpdateResults addTagToRestaurant(final String restaurantId, final String newTag) {
 		final ObjectId oid = this.connectionManager.getObjectId(restaurantId);
 		final Query<Restaurant> query = createQuery().field("_id").equal(oid);
