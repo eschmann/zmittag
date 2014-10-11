@@ -20,6 +20,9 @@ public class Group {
 	@Transient
 	private Set<Member> memberList;
 
+	@Transient
+	private double[] location;
+
 	public Group() {
 		this.members = new HashSet<String>();
 	}
@@ -78,6 +81,14 @@ public class Group {
 
 	public void setDate(long date) {
 		this.date = date;
+	}
+
+	public double[] getLocation() {
+		return location;
+	}
+
+	public void setLocation(double[] location) {
+		this.location = location;
 	}
 
 }

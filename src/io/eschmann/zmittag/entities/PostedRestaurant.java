@@ -1,6 +1,7 @@
 package io.eschmann.zmittag.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 public class PostedRestaurant implements Serializable {
@@ -18,6 +19,10 @@ public class PostedRestaurant implements Serializable {
 	private long ratingCount;
 	private double averageRating;
 	private Set<String> tags;
+	
+	public PostedRestaurant() {
+		this.tags = new HashSet<String>();
+	}
 
 	public String getName() {
 		return name;

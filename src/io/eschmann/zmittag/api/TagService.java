@@ -18,6 +18,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.apache.commons.lang3.StringUtils;
+
 @Path("tags")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
@@ -46,8 +48,13 @@ public class TagService {
 	@Path("add")
 	public Response add(PostedTag newTag) {
 		
-		final Tag tag = new Tag(newTag);
-		this.tagDao.save(tag);
+		final String tagName = newTag.getName();
+		
+		if(StringUtils.isBlank(tagName)) {
+			return ServiceHelper.createOkResponseBuilder().build();
+		}
+		
+		final Tag tag = this.tagDao.addTagIfNotExist(tagName);
 		
 		return ServiceHelper.createOkResponseBuilder().entity(ServiceHelper.convertToJson(tag)).build();
 	}

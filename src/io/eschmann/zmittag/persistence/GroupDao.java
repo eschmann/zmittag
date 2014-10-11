@@ -2,6 +2,8 @@ package io.eschmann.zmittag.persistence;
 
 import io.eschmann.zmittag.entities.Group;
 
+import java.util.List;
+
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.dao.BasicDAO;
 import org.mongodb.morphia.query.Query;
@@ -19,6 +21,12 @@ public class GroupDao extends BasicDAO<Group, String> {
 	
 	public Group findOneGroup(final String id) {
 		return findOne("_id", this.connectionManager.getObjectId(id));
+	}
+	
+	public List<Group> findMemberGroups(final String memberName) {
+		final Query<Group> query = createQuery().field("members").contains(memberName);
+		final List<Group> foundGroups = find(query).asList();
+		return foundGroups;
 	}
 	
 	public UpdateResults addMemberToGroup(final String groupId, final String memberName) {

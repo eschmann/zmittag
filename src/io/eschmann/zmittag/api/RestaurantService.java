@@ -6,6 +6,7 @@ import io.eschmann.zmittag.entities.PostedTag;
 import io.eschmann.zmittag.entities.Restaurant;
 import io.eschmann.zmittag.persistence.ConnectionManager;
 import io.eschmann.zmittag.persistence.RestaurantDao;
+import io.eschmann.zmittag.persistence.TagDao;
 import io.eschmann.zmittag.service.ServiceHelper;
 
 import java.net.UnknownHostException;
@@ -33,10 +34,13 @@ import org.mongodb.morphia.query.UpdateResults;
 public class RestaurantService {
 
 	private RestaurantDao restaurantDao;
+	private TagDao tagDao;
 
 	public RestaurantService() {
 		try {
-			this.restaurantDao = new RestaurantDao(new ConnectionManager());
+			final ConnectionManager connectionManager = new ConnectionManager();
+			this.restaurantDao = new RestaurantDao(connectionManager);
+			this.tagDao = new TagDao(connectionManager);
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		}
@@ -57,6 +61,13 @@ public class RestaurantService {
 		Restaurant restaurant = new Restaurant(newRestaurant);
 
 		this.restaurantDao.save(restaurant);
+
+		final Set<String> tags = restaurant.getTags();
+		if (tags != null) {
+			for (String tag : tags) {
+				this.tagDao.addTagIfNotExist(tag);
+			}
+		}
 
 		return ServiceHelper.createOkResponseBuilder()
 				.entity(ServiceHelper.convertToJson(restaurant)).build();
@@ -87,7 +98,7 @@ public class RestaurantService {
 
 	@GET
 	@Path("{id}/tags")
-	public Response join(@PathParam("id") String restaurantId) {
+	public Response listTags(@PathParam("id") String restaurantId) {
 		final Restaurant foundRestaurant = this.restaurantDao
 				.findOneRestaurant(restaurantId);
 		final Set<String> tags = foundRestaurant == null ? new HashSet<String>()
@@ -98,9 +109,12 @@ public class RestaurantService {
 
 	@POST
 	@Path("{id}/tags/add")
-	public Response join(@PathParam("id") String restaurantId, PostedTag newTag) {
+	public Response addTag(@PathParam("id") String restaurantId,
+			PostedTag newTag) {
 		final UpdateResults result = this.restaurantDao.addTagToRestaurant(
 				restaurantId, newTag.getName());
+
+		this.tagDao.addTagIfNotExist(newTag.getName());
 
 		return ServiceHelper.createOkResponseBuilder().build();
 	}
