@@ -1,24 +1,21 @@
 package io.eschmann.zmittag.entities;
 
-
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 
-@Entity(value = "members", noClassnameStored = true)
-public class Member {
+@Entity(value = "tags", noClassnameStored = true)
+public class Tag {
 
 	@Id
 	private String id;
 	private String name;
-	private String email;
 	
-	public Member() {
+	public Tag() {
 		
 	}
 	
-	public Member(final PostedMember member) {
-		this.name = member.getMember();
-		this.email = member.getEmail();
+	public Tag(final PostedTag newTag) {
+		this.name = newTag.getName();
 	}
 
 	public String getId() {
@@ -35,14 +32,6 @@ public class Member {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 
 }

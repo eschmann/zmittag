@@ -16,4 +16,22 @@ public class MemberDao extends BasicDAO<Member, String> {
 	public Member findOneMember(final String id) {
 		return findOne("_id", this.connectionManager.getObjectId(id));
 	}
+	
+	public Member findOneByName(final String name) {
+		return findOne("name", name);
+	}
+	
+	public Member addMemberIfNotExist(final String name, final String email) {
+		final Member existingMember = findOneByName(name);
+		if(existingMember != null) {
+			return existingMember;
+		}
+		
+		final Member newMember = new Member();
+		newMember.setName(name);
+		newMember.setEmail(email);
+		save(newMember);
+		return newMember;
+		
+	}
 }

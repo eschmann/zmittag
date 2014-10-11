@@ -28,5 +28,12 @@ public class GroupDao extends BasicDAO<Group, String> {
 		final UpdateResults result = update(query,  update);
 		return result;
 	}
-
+	
+	public UpdateResults removeMemberFromGroup(final String groupId, final String memberName) {
+		final ObjectId oid = this.connectionManager.getObjectId(groupId);
+		final Query<Group> query = createQuery().field("_id").equal(oid);
+		final UpdateOperations<Group> update = createUpdateOperations().removeAll("members", memberName);
+		final UpdateResults result = update(query,  update);
+		return result;
+	}
 }

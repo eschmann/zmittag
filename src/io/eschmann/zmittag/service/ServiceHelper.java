@@ -1,4 +1,4 @@
-package io.eschmann.zmittag.api;
+package io.eschmann.zmittag.service;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;

@@ -1,4 +1,4 @@
-package io.eschmann.zmittag.service.filter;
+package io.eschmann.zmittag.service;
 
 import java.io.IOException;
 

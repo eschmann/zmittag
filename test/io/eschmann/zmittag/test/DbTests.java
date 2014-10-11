@@ -13,6 +13,7 @@ import io.eschmann.zmittag.persistence.RestaurantDao;
 import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
@@ -79,7 +80,7 @@ public class DbTests {
 		
 		assertEquals(testRestaurant.getId(), foundRestaurant.getId());
 	}
-
+	
 	@Test
 	public void tetsShouldAddMemberToGroup() {
 
@@ -90,10 +91,45 @@ public class DbTests {
 
 		final UpdateResults result = groupDao.addMemberToGroup(
 				testGroup.getId(), newMemberName);
+		
+		assertEquals(1, result.getUpdatedCount());
 
 		Group foundGroup = groupDao.findOneGroup(testGroup.getId());
 
 		assertTrue(foundGroup.getMembers().contains(newMemberName));
+	}
+	
+	@Test
+	public void testShouldUpdateRestaurantRating() {
+		Restaurant testRestaurant = new Restaurant();
+		testRestaurant.setName("Restaurant " + createTestName());
+		testRestaurant.setLatitude(createTestDouble());
+		testRestaurant.setLongitude(createTestDouble());
+		testRestaurant.addTag(createTestName());
+		testRestaurant.setAverageRating(4.0d);
+		testRestaurant.setRatingCount(1);
+		
+		restaurantDao.save(testRestaurant);
+		
+		restaurantDao.addRatingToRestaurant(testRestaurant.getId(), 2.0d);
+		
+		Restaurant foundRestaurant = restaurantDao.findOneRestaurant(testRestaurant.getId());
+		assertEquals(0, Double.compare(3.0d, foundRestaurant.getAverageRating()));
+	}
+	
+	@Test
+	public void testShouldFindNearestRestaurants() {
+		Restaurant testRestaurant = createTestRestaurant();
+		double latitude = 25.0d;
+		double longitude = 15.0d;
+		testRestaurant.setLocation(latitude, longitude);
+		String testTag = createTestName();
+		testRestaurant.addTag(testTag);
+		
+		restaurantDao.save(testRestaurant);
+		
+		List<Restaurant> foundRestaurants = restaurantDao.findNearestRestaurants(latitude, longitude);
+		assertTrue(foundRestaurants.size() > 0);
 	}
 
 	private Group createTestGroup() {
@@ -120,4 +156,7 @@ public class DbTests {
 		return restaurant;
 	}
 
+	private double createTestDouble() {
+		return Math.round(20);
+	}
 }

@@ -1,4 +1,4 @@
-package io.eschmann.zmittag.api;
+package io.eschmann.zmittag;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;

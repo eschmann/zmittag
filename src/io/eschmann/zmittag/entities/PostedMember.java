@@ -2,7 +2,7 @@ package io.eschmann.zmittag.entities;
 
 import java.io.Serializable;
 
-public class GroupAdd implements Serializable {
+public class PostedMember implements Serializable {
 
 	/**
 	 * 
@@ -10,6 +10,7 @@ public class GroupAdd implements Serializable {
 	private static final long serialVersionUID = 8106521764366169284L;
 
 	private String member;
+	private String email;
 	private String group;
 
 	public String getMember() {
@@ -18,6 +19,14 @@ public class GroupAdd implements Serializable {
 
 	public void setMember(String member) {
 		this.member = member;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getGroup() {
