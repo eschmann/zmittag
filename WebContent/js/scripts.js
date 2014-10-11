@@ -12,7 +12,7 @@ zmittagApp.config(function (localStorageServiceProvider) {
     localStorageServiceProvider.setStorageCookie(0, '/');
 });
 
-zmittagApp.controller('mainController', function($scope, $http, $materialToast, md5, localStorageService) {
+zmittagApp.controller('mainController', function($scope, $filter, $http, $materialToast, md5, localStorageService) {
     $scope.api = "http://172.27.9.66:8080/Zmittag/api/";
 
     $scope.destinations = [];
@@ -84,7 +84,7 @@ zmittagApp.controller('mainController', function($scope, $http, $materialToast, 
     };
 
     $scope.joinGroup = function(id) {
-        $http.post($scope.api+'group/'+id+'/join', {
+        $http.post($scope.api+'groups/'+id+'/join', {
             member: $scope.user.name,
             email: $scope.user.email
         }).success(function() {
@@ -119,6 +119,23 @@ zmittagApp.controller('mainController', function($scope, $http, $materialToast, 
     }, function() {
         //console.log('geolocation error');
     });
+
+    $scope.search = {
+        archive: ''
+    };
+
+    $scope.hasJoined = function(id) {
+        for (var i = 0; i < $scope.destinations.length; i++) {
+            if ($scope.destinations[i].id == id) {
+                for (var t = 0; t < $scope.destinations[i].memberList.length; t++) {
+                    if ($scope.destinations[i].memberList[t].email == $scope.user.email) {
+                        return true;
+                    };
+                };
+            };
+        };
+        return false;
+    };
 });
 
 zmittagApp.directive('gravatar', function() {

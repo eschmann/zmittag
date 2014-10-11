@@ -56,7 +56,7 @@ material-card {
         li {
             float: left;
             text-align: center;
-            width: 70px;
+            min-width: 70px;
             padding: 5px 2px;
 
             img {
@@ -139,4 +139,14 @@ material-input-group {
     color: @blue-light;
     padding-bottom: 5px;
     border-bottom: 2px solid @blue-light;
+}
+
+#suggest {
+    .search {
+        padding: 0px 15px;
+
+        material-input-group {
+            margin: 0;
+        }
+    }
 }

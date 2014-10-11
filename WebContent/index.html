@@ -41,7 +41,6 @@
                         <gravatar>
                     </div>
                 </material-toolbar>
-
                 <material-tabs selected="data.selectedIndex" center>
                     <material-tab label="JOIN">
                         <material-card class="form" style="background: white;" ng-hide="!isValidUser" ng-if="!userIsSubmitted()">
@@ -54,7 +53,7 @@
                                 </material-button>
                             </form>
                         </material-card>
-                        <material-card class="card" ng-repeat="d in destinations" style="background: white;" ng-class="{ active: isActive(d.id), joined: 'filter:d.id'}" ng-click="setActive(d.id)">
+                        <material-card class="card" ng-repeat="d in destinations" style="background: white;" ng-class="{ active: isActive(d.id), joined: hasJoined(d.id) }" ng-click="setActive(d.id)">
                             <span class="joined-icon"><i class="fa fa-check-circle"></i></span>
                             <h2>{{ d.name }} <span class="badge">{{ d.memberList.length > 0 ? d.memberList.length : 0 }}</span></h2>
                             <p>{{ d.id }}</p>
@@ -65,7 +64,7 @@
                                         {{ u.name }}
                                     </li>
                                 </ul>
-                                <material-button class="material-theme-green join-group" ng-click="joinGroup(d.id)" ng-if="filter : d.id">
+                                <material-button class="material-theme-green join-group" ng-click="joinGroup(d.id)" ng-if="!hasJoined(d.id)">
                                     Join!
                                 </material-button>
                             </div>
@@ -75,11 +74,17 @@
                         </material-whiteframe>
                         <h3 class="recommendations">Recommendations:</h3>
                     </material-tab>
-                    <material-tab label="SUGGEST">
-                        <material-card class="map" style="background: white;">
+                    <material-tab label="SUGGEST"><div id="suggest">
+                        <div class="search">
+                            <form>
+                                <tf-float label="Search archive.." value="search.archive" ng-model="search.archive" ng-model-onblur></tf-float>
+                            </form>
+                        </div>
+
+                        <!-- <material-card class="map" style="background: white;">
                             <ui-gmap-google-map center="map.center" zoom="map.zoom"></ui-gmap-google-map>
-                        </material-card>
-                    </material-tab>
+                        </material-card> -->
+                    </div></material-tab>
                 </material-tabs>
             </material-content>
         </div>

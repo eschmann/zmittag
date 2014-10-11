@@ -53,7 +53,7 @@ material-card .user-list:after {
 material-card .user-list li {
   float: left;
   text-align: center;
-  width: 70px;
+  min-width: 70px;
   padding: 5px 2px;
 }
 material-card .user-list li img {
@@ -123,4 +123,10 @@ material-input-group input {
   color: #4285f4;
   padding-bottom: 5px;
   border-bottom: 2px solid #4285f4;
+}
+#suggest .search {
+  padding: 0px 15px;
+}
+#suggest .search material-input-group {
+  margin: 0;
 }
