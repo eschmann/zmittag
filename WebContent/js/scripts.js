@@ -12,7 +12,7 @@ zmittagApp.config(function (localStorageServiceProvider) {
     localStorageServiceProvider.setStorageCookie(0, '/');
 });
 
-zmittagApp.controller('mainController', function($scope, $http, md5, localStorageService) {
+zmittagApp.controller('mainController', function($scope, $http, $materialToast, md5, localStorageService) {
     $scope.api = "http://172.27.9.66:8080/Zmittag/api/";
 
     $scope.destinations = [];
@@ -45,12 +45,11 @@ zmittagApp.controller('mainController', function($scope, $http, md5, localStorag
     $scope.isActiveValue = null;
 
     $scope.setActive = function(id) {
-        $scope.isActiveValue == id;
+        $scope.isActiveValue = id;
     };
 
     $scope.isActive = function(id) {
-        //console.log(id);
-        return id == $scope.isActiveValue ;
+        return id == $scope.isActiveValue;
     };
 
     $scope.isValidUser = function() {
@@ -82,6 +81,25 @@ zmittagApp.controller('mainController', function($scope, $http, md5, localStorag
 
     $scope.md5 = function(value) {
         return md5.createHash(value);
+    };
+
+    $scope.joinGroup = function(id) {
+        $http.post($scope.api+'group/'+id+'/join', {
+            member: $scope.user.name,
+            email: $scope.user.email
+        }).success(function() {
+            $materialToast.show({
+                template: '<material-toast>Success!</material-toast>',
+                duration: 2000,
+                position: 'top right'
+            });
+        }).error(function() {
+            $materialToast.show({
+                template: '<material-toast>Whoops. Something went wrong.<br>Please try again later.</material-toast>',
+                duration: 2000,
+                position: 'top right'
+            });
+        });
     };
 
     $scope.map = {

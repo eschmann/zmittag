@@ -29,7 +29,7 @@
         <!-- angular app -->
         <script src="/js/scripts.js"></script>
         <!-- font and icons -->
-        <!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"> -->
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     </head>
     <body ng-app="zmittagApp">
         <div id="main" ng-controller="mainController">
@@ -54,15 +54,21 @@
                                 </material-button>
                             </form>
                         </material-card>
-                        <material-card class="card" ng-repeat="d in destinations" style="background: white;" ng-class="{ active: isActive(d.id)}" ng-click="setActive(d.id)">
+                        <material-card class="card" ng-repeat="d in destinations" style="background: white;" ng-class="{ active: isActive(d.id), joined: 'filter:d.id'}" ng-click="setActive(d.id)">
+                            <span class="joined-icon"><i class="fa fa-check-circle"></i></span>
                             <h2>{{ d.name }} <span class="badge">{{ d.memberList.length > 0 ? d.memberList.length : 0 }}</span></h2>
                             <p>{{ d.id }}</p>
-                            <ul class="user-list" ng-if="isActive(d.id)">
-                                <li ng-repeat="u in d.memberList">
-                                    <img src="http://www.gravatar.com/avatar/{{ md5(u.name) }}?s=40" alt=""><br>
-                                    {{ u.name }}
-                                </li>
-                            </ul>
+                            <div ng-if="isActive(d.id)">
+                                <ul class="user-list">
+                                    <li ng-repeat="u in d.memberList">
+                                        <img src="http://www.gravatar.com/avatar/{{ md5(u.email) }}?s=40" alt=""><br>
+                                        {{ u.name }}
+                                    </li>
+                                </ul>
+                                <material-button class="material-theme-green join-group" ng-click="joinGroup(d.id)" ng-if="filter : d.id">
+                                    Join!
+                                </material-button>
+                            </div>
                         </material-card>
                         <material-whiteframe class="info" layout ng-if="destinations.length == 0" layout-align="center center">
                             <span>No suggestions, yet. Be the first one!</span>

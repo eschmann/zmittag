@@ -14,6 +14,11 @@ body, material-tabs > .tabs-content {
     }
 }
 
+#main {
+    margin: 0 auto;
+    max-width: 768px;
+}
+
 .badge {
     display: inline-block;
     min-width: 10px;
@@ -24,7 +29,7 @@ body, material-tabs > .tabs-content {
     color: #fff;
     text-align: center;
     white-space: nowrap;
-    vertical-align: baseline;
+    vertical-align: middle;
     background-color: #777;
     border-radius: 10px;
 }
@@ -38,15 +43,14 @@ material-whiteframe.info {
 }
 
 material-card {
-    h2 {
-        margin: 0;
-    }
+    h2, p { margin: 0; }
+    position: relative;
 
     .user-list {
-        display: none;
         list-style: none;
         padding: 0;
         margin: 0;
+        margin-top: 15px;
         .clearfix();
 
         li {
@@ -61,8 +65,31 @@ material-card {
         }
     }
 
-    &.active .user-list {
-        display: block;
+    .joined-icon {
+        display: none;
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        font-size: 24px;
+        padding: 0;
+        text-align: center;
+        right: 3px;
+        top: 3px;
+        color: rgb(37, 155, 0);
+    }
+
+    &.joined {
+        border: 3px solid rgb(37, 155, 0);
+        .joined-icon {
+            display: block;
+        }
+    }
+
+    .join-group {
+        margin-top: 15px;
+        width: 100%;
+        padding: 7px 15px;
     }
 
     &.form {
@@ -83,6 +110,10 @@ material-tabs {
     material-tabs-ink-bar {
         background: #3f51b5;
         height: 3px;
+    }
+
+    .tabs-content {
+        margin-top: 7px;
     }
 }
 
