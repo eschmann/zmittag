@@ -1,17 +1,22 @@
 <!doctype html>
-<html lang="en" ng-app="zmittagApp">
+<html lang="en">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>zmittag</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="/css/normalize.css">
-        <link rel="stylesheet" href="/css/main.css">
+        <!-- styling -->
+        <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css">
         <link rel="stylesheet" href="/css/style.css">
         <!-- angular -->
         <script src="/bower_components/angular/angular.js"></script>
         <script src="/bower_components/angular-route/angular-route.js"></script>
+        <!-- material -->
+        <script src="/bower_components/angular-animate/angular-animate.js"></script>
+        <script src="/bower_components/angular-aria/angular-aria.js"></script>
+        <script src="/bower_components/hammerjs/hammer.js"></script>
+        <script src="/bower_components/angular-material/angular-material.js"></script>
         <!-- google maps -->
         <script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>
         <script src='/bower_components/lodash/dist/lodash.min.js'></script>
@@ -21,23 +26,41 @@
         <script src="/bower_components/angular-md5/angular-md5.js"></script>
         <script src="/js/scripts.js"></script>
         <!-- font and icons -->
-        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-        <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700' rel='stylesheet' type='text/css'>
-        <!-- Place favicon.ico and apple-touch-icon(s) in the root directory -->
+        <!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"> -->
     </head>
-    <body ng-controller="mainController">
-        <header id="header">
-            <h1>zMittag</h1>
-            <gravatar>
-        </header>
-        <main id="main">
-            <div class="item" ng-repeat="d in destinations">
-                {{ d.name }}
-            </div>
-            <div class="item map">
-                <ui-gmap-google-map center="map.center" zoom="map.zoom"></ui-gmap-google-map>
-            </div>
-            <a href="#" class="btn btn-green"><i class="fa fa-plus"></i> New Suggestion</a>
-        </main>
+    <body ng-app="zmittagApp">
+        <div id="main" ng-controller="mainController">
+            <material-content>
+                <material-toolbar id="header" class="material-theme-dark">
+                    <div class="material-toolbar-tools">
+                        <h2><span>zMittag</span></h2>
+                        <span flex></span>
+                        <gravatar>
+                    </div>
+                </material-toolbar>
+
+                <material-tabs selected="data.selectedIndex" center>
+                    <material-tab label="JOIN">
+                        <material-card class="card" ng-repeat="d in destinations">
+                            <div class="material-card-image">
+                                Test
+                            </div>
+                            <h2>{{ d.name }}</h2>
+                            <p>{{ d.id }}</p>
+                        </material-card>
+                    </material-tab>
+                    <material-tab label="SUGGEST">
+                        <form style="padding: 20px;">
+                            <tf-float label="Name" value="user.name"></tf-float>
+                            <tf-float label="Email" value="user.email"></tf-float>
+                            <material-button class="material-theme-light-blue">Save</material-button>
+                        </form>
+                        <material-card class="map">
+                            <ui-gmap-google-map center="map.center" zoom="map.zoom"></ui-gmap-google-map>
+                        </material-card>
+                    </material-tab>
+                </material-tabs>
+            </material-content>
+        </div>
     </body>
 </html>

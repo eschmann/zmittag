@@ -1,61 +1,50 @@
 @import url('lib.less');
 @import url('config.less');
 
-body {
-    background-color: @background; 
+@blue: #3f51b5;
+@blue-light: #4285F4;
+
+body, material-tabs > .tabs-content {
     background: url('/img/kindajean.png');
 }
 
-@header-height: 60px;
-@padding: 15px;
-
 #header {
-    .flex-display();
-    padding: 0 @padding;
-    background-color: @background-white;
-    border-bottom: 1px solid #ececec;
-    height: @header-height;
-    line-height: @header-height;
-    .justify-content(space-between);
-
-    h1 {
-        margin: 0;
-        font-weight: 100;
-    }
-
     .user img {
         .border-radius(50%);
     }
 }
 
-#main {
-    padding: @padding;
-    .flex-display();
-    .flex-direction(column);
-
-    .item {
-        background-color: @background-white;
-        margin-bottom: @padding;
-        .border-radius(3px);
-        .drop-shadow();
-        padding: 6px;
-        .transition();
-
-        &.map {
-            padding: 0;
-        }
+material-tabs {
+    material-tabs-ink-bar {
+        background: #3f51b5;
+        height: 3px;
     }
-
-    .btn {
-        &.btn-green {
-            display: inline-block;
-            background-color: #1b926c;
-            color: white;
-            padding: 6px 9px;
-            text-decoration: none;
-        }
-    }
-
-    .angular-google-map-container { height: 400px; }
 }
 
+material-input-group {
+    label {
+        font-size: 18px;
+    }
+
+    input {
+        font-size: 24px;
+        width: 100%;
+    }
+
+    // &.material-input-has-value {
+    //     label {
+    //         color: @blue-light;
+    //     }
+
+    //     input[type="text"]:focus {
+    //         border-color: @blue-light;
+    //     }
+    // }
+}
+
+.angular-google-map-container { height: 400px; }
+
+.tabs-content .card: {
+    background: white;
+    background: rgba(255,255,255,0.85);
+}

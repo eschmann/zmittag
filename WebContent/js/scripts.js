@@ -1,6 +1,9 @@
 var zmittagApp = angular.module('zmittagApp', [
     'angular-md5',
-    'google-maps'.ns()
+    'google-maps'.ns(),
+    'ngAnimate',
+    'ngAria',
+    'ngMaterial'
 ]);
 
 zmittagApp.controller('mainController', function($scope, $http, md5) {
@@ -11,9 +14,16 @@ zmittagApp.controller('mainController', function($scope, $http, md5) {
         $scope.destinations = data;
     });
 
+    $scope.data = {
+      maxIndex : 1,
+      selectedIndex : 0,
+      locked : true
+    };
+
     $scope.user = {
         "name": null,
-        "email": null
+        "email": null,
+        "hash": null
     };
 
     $scope.map = {
@@ -31,14 +41,7 @@ zmittagApp.controller('mainController', function($scope, $http, md5) {
         };
         $scope.$apply();
     }, function() {
-        console.log('geolocation error');
-    });
-
-    $scope.test = $http.get($scope.api+'members/list/').success(function(data) {
-        $scope.user = {
-            name: data[0].name,
-            email: md5.createHash(data[0].email)
-        }
+        //console.log('geolocation error');
     });
 });
 
@@ -47,8 +50,44 @@ zmittagApp.directive('gravatar', function() {
         restrict: 'AE',
         template: 
             '<span class="user">' +
-                '<img src="http://www.gravatar.com/avatar/{{ user.email }}?s=40" alt="{{ user.name }}">' +
+                '<img src="http://www.gravatar.com/avatar/{{ user.hash }}?s=40" alt="{{ user.name }}">' +
             '</span>',
         replace: true
+    };
+});
+
+
+zmittagApp.directive('tfFloat', function() {
+    return {
+      restrict: 'E',
+      replace: true,
+      scope : {
+        fid : '@?',
+        value : '='
+      },
+      compile : function() {
+        return {
+          pre : function(scope, element, attrs) {
+            // transpose `disabled` flag
+            if ( angular.isDefined(attrs.disabled) ) {
+              element.attr('disabled', true);
+              scope.isDisabled = true;
+            }
+
+            // transpose the `label` value
+            scope.label = attrs.label || "";
+            scope.fid = scope.fid || scope.label;
+
+            // transpose optional `type` and `class` settings
+            element.attr('type', attrs.type || "text");
+            element.attr('class', attrs.class );
+          }
+        }
+      },
+      template:
+        '<material-input-group ng-disabled="isDisabled">' +
+          '<label for="{{fid}}">{{label}}</label>' +
+          '<material-input id="{{fid}}" ng-model="value">' +
+        '</material-input-group>'
     };
 });
