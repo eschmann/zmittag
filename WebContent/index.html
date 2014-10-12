@@ -73,6 +73,27 @@
                             <span>No suggestions, yet. Be the first one!</span>
                         </material-whiteframe>
                         <h3 class="recommendations">Recommendations:</h3>
+                        <div>
+                             <material-card ng-repeat="r in recommendations" class="card" style="background: white;">
+                                <h2>{{ r.name }} <span class="badge">{{ r.averageRating }}</span></h2>
+                                <span>{{ r.tags }}</span>
+                            </material-card>
+                        </div>
+                        <h3 class="recommendations">Tags:</h3>
+                                                                        <div>
+                            <form>
+                                <select ng-model="searchTag" ng-change="searchTagChanged(searchTag)">
+                                    <option value="">...</option>
+                                    <option ng-repeat="tag in tags" value="{{ tag.name }}">{{ tag.name }}</option>
+                                </select>
+                            </form>
+                            <div>
+                                <material-card ng-repeat="r in tagFilteredRestaurants" class="card" style="background: white;">
+                                    <h2>{{ r.name }} <span class="badge">{{ r.averageRating }}</span></h2>
+                                    <span>{{ r.tags }}</span>
+                                </material-card>
+                            </div>
+                        </div>
                     </material-tab>
                     <material-tab label="SUGGEST"><div id="suggest">
                         <div class="search">

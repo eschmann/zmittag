@@ -247,6 +247,38 @@ zmittagApp.controller('mainController', function($scope, $log, $filter, $http, $
         };
         return false;
     };
+    
+    $scope.recommendations = [];
+    $http.get($scope.api+'restaurants/bestRating').success(function(data){
+        $scope.recommendations = data;
+    });
+    
+    $scope.tags = [];
+    $http.get($scope.api+'tags/list').success(function(data){
+        $scope.tags = data;
+    });
+
+
+    $scope.searchRestaurants = function(pattern) {
+        $http.post($scope.api+'restaurants/searchByName', {
+            searchPattern: pattern
+        }).success(function(data) {
+            $scope.search.results = data;
+        }).error(function(){
+            $scope.search.results = [];
+        });     
+    };
+
+
+
+    $scope.tagFilteredRestaurants = [];
+    $scope.searchTagChanged = function(tag) {
+        $http.post($scope.api+'restaurants/ensureTag', {
+            searchTag: tag
+        }).success(function(data) {
+            $scope.tagFilteredRestaurants = data;
+        });     
+    };
 });
 
 zmittagApp.directive('gravatar', function() {
