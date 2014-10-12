@@ -56,7 +56,7 @@
                         <material-card class="card" ng-repeat="d in destinations" style="background: white;" ng-class="{ active: isActive(d.id), joined: hasJoined(d.id) }" ng-click="setActive(d.id)">
                             <span class="joined-icon"><i class="fa fa-check-circle"></i></span>
                             <h2>{{ d.name }} <span class="badge">{{ d.memberList.length > 0 ? d.memberList.length : 0 }}</span></h2>
-                            <p>{{ d.id }}</p>
+                            <p>{{ typeof(d.address) != 'undefined' ? d.address : '' }}</p>
                             <div ng-if="isActive(d.id)">
                                 <ul class="user-list">
                                     <li ng-repeat="u in d.memberList">
