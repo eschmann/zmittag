@@ -90,6 +90,7 @@ public class GroupService {
 					.getName());
 			if (restaurant != null) {
 				group.setLocation(restaurant.getLocation());
+				group.setAddress(restaurant.getAddress());
 			}
 		}
 		return ServiceHelper.createOkResponseBuilder()

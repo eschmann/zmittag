@@ -22,6 +22,8 @@ public class Group {
 
 	@Transient
 	private double[] location;
+	@Transient
+	private String address;
 
 	public Group() {
 		this.members = new HashSet<String>();
@@ -89,6 +91,14 @@ public class Group {
 
 	public void setLocation(double[] location) {
 		this.location = location;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 }

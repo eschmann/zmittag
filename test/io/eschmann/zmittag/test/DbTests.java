@@ -83,6 +83,11 @@ public class DbTests {
 		assertEquals(testMember.getId(), foundMember.getId());
 
 	}
+	
+	@Test
+	public void testShouldAddRestaurantRating() {
+		restaurantDao.addRatingToRestaurant("543a2ae393f42162383ce52a", 3.5d);
+	}
 
 	@Test
 	public void testShouldSaveAndFindSimpleRestaurant() {
@@ -94,7 +99,12 @@ public class DbTests {
 
 		assertEquals(testRestaurant.getId(), foundRestaurant.getId());
 	}
-
+	
+	@Test
+	public void testShouldRemoveMemberFromGroup(){
+		
+	}
+	
 	@Test
 	public void tetsShouldAddMemberToGroup() {
 
@@ -201,6 +211,8 @@ public class DbTests {
 		Group foundGroup = groupDao.findOneGroup(group.getId());
 		assertEquals(group.getId(), foundGroup.getId());
 	}
+	
+	
 
 	@Test
 	public void testShouldSaveAndFindTags() {

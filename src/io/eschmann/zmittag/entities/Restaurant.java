@@ -27,6 +27,8 @@ public class Restaurant {
 
 	public Restaurant() {
 		this.tags = new HashSet<String>();
+		this.averageRating = 3.5d;
+		this.ratingCount = 1;
 	}
 
 	public Restaurant(final PostedRestaurant postedRestaurant) {
