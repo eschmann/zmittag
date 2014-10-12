@@ -95,6 +95,15 @@ material-card.form p {
 material-card.form.error {
   background: red !important;
 }
+#gmaps .actions {
+  padding: 8px 15px;
+}
+#gmaps #gmapsearch {
+  background: white;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 8px 15px;
+  width: 100%;
+}
 material-tabs material-tabs-ink-bar {
   background: #3f51b5;
   height: 3px;
