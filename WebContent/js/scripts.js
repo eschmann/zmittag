@@ -210,6 +210,9 @@ zmittagApp.controller('mainController', function($scope, $log, $filter, $http, $
                 duration: 2000,
                 position: 'top right'
             });
+            window.setTimeout(function() {
+                window.location.reload(false);
+            }, 800);
         }).error(function() {
             $materialToast.show({
                 template: '<material-toast>Whoops. Something went wrong.<br>Please try again later.</material-toast>',
