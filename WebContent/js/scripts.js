@@ -237,6 +237,7 @@ zmittagApp.controller('mainController', function($scope, $log, $filter, $http, $
     $scope.hasJoined = function(id) {
         for (var i = 0; i < $scope.destinations.length; i++) {
             if ($scope.destinations[i].id == id) {
+                if (!$scope.destinations[i].memberList) { continue; };
                 for (var t = 0; t < $scope.destinations[i].memberList.length; t++) {
                     if ($scope.destinations[i].memberList[t].email == $scope.user.email) {
                         return true;
