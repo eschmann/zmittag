@@ -1,15 +1,18 @@
 package io.eschmann.zmittag.api;
 
+import io.eschmann.zmittag.entities.Group;
 import io.eschmann.zmittag.entities.PostedRating;
 import io.eschmann.zmittag.entities.PostedRestaurant;
 import io.eschmann.zmittag.entities.PostedTag;
 import io.eschmann.zmittag.entities.Restaurant;
 import io.eschmann.zmittag.persistence.ConnectionManager;
+import io.eschmann.zmittag.persistence.GroupDao;
 import io.eschmann.zmittag.persistence.RestaurantDao;
 import io.eschmann.zmittag.persistence.TagDao;
 import io.eschmann.zmittag.service.ServiceHelper;
 
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -34,12 +37,14 @@ import org.mongodb.morphia.query.UpdateResults;
 public class RestaurantService {
 
 	private RestaurantDao restaurantDao;
+	private GroupDao groupDao;
 	private TagDao tagDao;
 
 	public RestaurantService() {
 		try {
 			final ConnectionManager connectionManager = new ConnectionManager();
 			this.restaurantDao = new RestaurantDao(connectionManager);
+			this.groupDao = new GroupDao(connectionManager);
 			this.tagDao = new TagDao(connectionManager);
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
@@ -53,12 +58,32 @@ public class RestaurantService {
 		return ServiceHelper.createOkResponseBuilder()
 				.entity(ServiceHelper.convertToJson(restaurants)).build();
 	}
-
+	
 	@GET
+	@Path("bestRating")
+	public Response bestRating() {
+		final List<Group> activeGroupRestaurants = this.groupDao.findActiveGroupRestaurants();
+		final List<String> activeRestaurantNames = new ArrayList<String>();
+		for(Group group : activeGroupRestaurants) {
+			activeRestaurantNames.add(group.getName());
+		}
+		final List<Restaurant> restaurants = this.restaurantDao.findBest3LeftByRating(activeRestaurantNames);
+		return ServiceHelper.createOkResponseBuilder().entity(ServiceHelper.convertToJson(restaurants)).build();
+	}
+
+	@POST
 	@Path("ensureTag")
 	public Response ensureTag(PostedRestaurant postedRestaurant) {
 		final List<Restaurant> foundRestaurants = this.restaurantDao
 				.findByTag(postedRestaurant.getSearchTag());
+		return ServiceHelper.createOkResponseBuilder()
+				.entity(ServiceHelper.convertToJson(foundRestaurants)).build();
+	}
+	
+	@POST
+	@Path("searchByName")
+	public Response searchByName(PostedRestaurant postedRestaurant) {
+		final List<Restaurant> foundRestaurants = this.restaurantDao.searchByName(postedRestaurant.getSearchPattern());
 		return ServiceHelper.createOkResponseBuilder()
 				.entity(ServiceHelper.convertToJson(foundRestaurants)).build();
 	}

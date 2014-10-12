@@ -6,6 +6,9 @@ import java.util.Set;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 
+import com.mongodb.BasicDBList;
+import com.mongodb.BasicDBObject;
+
 @Entity(value = "restaurants", noClassnameStored = true)
 public class Restaurant {
 
@@ -17,6 +20,9 @@ public class Restaurant {
 	private long ratingCount;
 	private double averageRating;
 
+	private String address;
+	private String url;
+
 	private Set<String> tags;
 
 	public Restaurant() {
@@ -26,10 +32,37 @@ public class Restaurant {
 	public Restaurant(final PostedRestaurant postedRestaurant) {
 		this();
 		this.name = postedRestaurant.getName();
-		setLocation(postedRestaurant.getLatitude(), postedRestaurant.getLongitude());
+		setLocation(postedRestaurant.getLatitude(),
+				postedRestaurant.getLongitude());
 		final Set<String> tags = postedRestaurant.getTags();
-		if(tags != null && !tags.isEmpty()) {
+		if (tags != null && !tags.isEmpty()) {
 			this.tags = tags;
+		}
+		this.address = postedRestaurant.getAddress();
+		this.url = postedRestaurant.getUrl();
+	}
+	
+	public Restaurant(final BasicDBObject object) {
+		this.name = object.getString("name");
+		this.address = object.getString("address");
+		this.url = object.getString("url");
+		
+		final Object location = object.get("location");
+		if(location != null) {
+			BasicDBList locations = (BasicDBList) location;
+			double latitude = (double) locations.get(0);
+			double longitude = (double)locations.get(1);
+			setLocation(latitude, longitude);
+		}
+		
+		this.averageRating = object.getDouble("averageRating");
+		
+		final BasicDBList tags = (BasicDBList)object.get("tags");
+		if(tags != null) {
+			this.tags = new HashSet<String>();
+			for(Object tag : tags) {
+				this.tags.add(String.valueOf(tag));
+			}
 		}
 	}
 
@@ -50,8 +83,8 @@ public class Restaurant {
 	}
 
 	public double[] getLocation() {
-		if(this.location == null) {
-			this.location = new double[] {0.0d, 0.0d};
+		if (this.location == null) {
+			this.location = new double[] { 0.0d, 0.0d };
 		}
 		return location;
 	}
@@ -59,9 +92,9 @@ public class Restaurant {
 	public void setLocation(double[] location) {
 		this.location = location;
 	}
-	
+
 	public void setLocation(double latitude, double longitude) {
-		this.location = new double[] {latitude, longitude};
+		this.location = new double[] { latitude, longitude };
 	}
 
 	public long getRatingCount() {
@@ -90,5 +123,21 @@ public class Restaurant {
 
 	public void addTag(final String tag) {
 		this.tags.add(tag);
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 }

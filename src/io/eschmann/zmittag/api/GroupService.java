@@ -99,12 +99,16 @@ public class GroupService {
 	@POST
 	@Path("add")
 	public Response add(PostedGroup newGroup) {
+		
+		final String memberName = newGroup.getMember();
+		removeMemberFromOtherGroups(memberName);
 
 		final Group group = new Group(newGroup);
 
 		this.groupDao.save(group);
 		final Member member = this.memberDao.addMemberIfNotExist(
-				newGroup.getMember(), newGroup.getEmail());
+				memberName, newGroup.getEmail());
+		
 		final Pair<Group, Member> pair = Pair.of(group, member);
 
 		return ServiceHelper.createOkResponseBuilder()
@@ -116,13 +120,7 @@ public class GroupService {
 	public Response join(@PathParam("id") String groupId, PostedMember groupAdd) {
 		final String memberName = groupAdd.getMember();
 
-		final List<Group> memberGroups = this.groupDao
-				.findMemberGroups(memberName);
-		if (memberGroups != null) {
-			for (Group group : memberGroups) {
-				this.groupDao.removeMemberFromGroup(group.getId(), memberName);
-			}
-		}
+		removeMemberFromOtherGroups(memberName);
 		
 		final UpdateResults result = this.groupDao.addMemberToGroup(groupId,
 				memberName);
@@ -162,4 +160,14 @@ public class GroupService {
 				.entity(ServiceHelper.convertToJson(groupMembers)).build();
 	}
 
+	private void removeMemberFromOtherGroups(final String memberName) {
+		final List<Group> memberGroups = this.groupDao
+				.findMemberGroups(memberName);
+		
+		if (memberGroups != null) {
+			for (Group group : memberGroups) {
+				this.groupDao.removeMemberFromGroup(group.getId(), memberName);
+			}
+		}
+	}
 }

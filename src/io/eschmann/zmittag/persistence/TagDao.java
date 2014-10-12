@@ -2,7 +2,10 @@ package io.eschmann.zmittag.persistence;
 
 import io.eschmann.zmittag.entities.Tag;
 
+import java.util.List;
+
 import org.mongodb.morphia.dao.BasicDAO;
+import org.mongodb.morphia.query.Query;
 
 public class TagDao extends BasicDAO<Tag, String> {
 
@@ -11,6 +14,12 @@ public class TagDao extends BasicDAO<Tag, String> {
 	public TagDao(final ConnectionManager connectionManager) {
 		super(Tag.class, connectionManager.getDataStore());
 		this.connectionManager = connectionManager;
+	}
+	
+	public List<Tag> orderedList() {
+		final Query<Tag> query = createQuery().order("name");
+		final List<Tag> foundTags = find(query).asList();
+		return foundTags;
 	}
 	
 	public Tag findOneTag(final String id) {

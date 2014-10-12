@@ -39,7 +39,7 @@ public class TagService {
 	@GET
 	@Path("list")
 	public Response list() {
-		final List<Tag> tags = this.tagDao.find().asList();
+		final List<Tag> tags = this.tagDao.orderedList();
 		return ServiceHelper.createOkResponseBuilder()
 				.entity(ServiceHelper.convertToJson(tags)).build();
 	}

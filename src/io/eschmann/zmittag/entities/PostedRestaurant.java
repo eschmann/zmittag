@@ -19,7 +19,10 @@ public class PostedRestaurant implements Serializable {
 	private long ratingCount;
 	private double averageRating;
 	private Set<String> tags;
-	
+	private String address;
+	private String url;
+	private String searchPattern;
+
 	public PostedRestaurant() {
 		this.tags = new HashSet<String>();
 	}
@@ -86,6 +89,30 @@ public class PostedRestaurant implements Serializable {
 
 	public void setTags(Set<String> tags) {
 		this.tags = tags;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String getSearchPattern() {
+		return searchPattern;
+	}
+
+	public void setSearchPattern(String searchPattern) {
+		this.searchPattern = searchPattern;
 	}
 
 }

@@ -1,6 +1,7 @@
 package io.eschmann.zmittag.test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import io.eschmann.zmittag.entities.Group;
 import io.eschmann.zmittag.entities.Member;
@@ -214,6 +215,20 @@ public class DbTests {
 			tagDao.addTagIfNotExist(tagName);
 			
 		}
+	}
+	
+	@Test
+	public void testShouldFindRestaurantsByTag() {
+		String searchTag = "International";
+		List<Restaurant> foundRestaurants = restaurantDao.findByTag(searchTag);
+		assertFalse(foundRestaurants.isEmpty());
+	}
+	
+	@Test
+	public void testShouldSearchRestaurantNames() {
+		final String pattern = "Moritz";
+		List<Restaurant> foundRestaurants = restaurantDao.searchByName(pattern);
+		assertFalse(foundRestaurants.isEmpty());
 	}
 
 	private Group createTestGroup() {

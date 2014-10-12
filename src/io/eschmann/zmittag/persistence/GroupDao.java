@@ -1,7 +1,9 @@
 package io.eschmann.zmittag.persistence;
 
+import io.eschmann.zmittag.Constants;
 import io.eschmann.zmittag.entities.Group;
 
+import java.util.Date;
 import java.util.List;
 
 import org.bson.types.ObjectId;
@@ -21,6 +23,13 @@ public class GroupDao extends BasicDAO<Group, String> {
 	
 	public Group findOneGroup(final String id) {
 		return findOne("_id", this.connectionManager.getObjectId(id));
+	}
+	
+	public List<Group> findActiveGroupRestaurants() {
+		long leastDate = new Date().getTime() - Constants.DAY_IN_MILLIS;
+		final Query<Group> query = createQuery().field("date").greaterThan(leastDate);
+		final List<Group> foundGroups = find(query).asList();
+		return foundGroups;
 	}
 	
 	public List<Group> findMemberGroups(final String memberName) {
