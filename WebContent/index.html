@@ -18,7 +18,7 @@
         <script src="/bower_components/hammerjs/hammer.js"></script>
         <script src="/bower_components/angular-material/angular-material.js"></script>
         <!-- google maps -->
-        <script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>
+        <script src='//maps.googleapis.com/maps/api/js?sensor=false&libraries=places'></script>
         <script src='/bower_components/lodash/dist/lodash.min.js'></script>
         <script src='/bower_components/bluebird/js/browser/bluebird.js'></script>
         <script src="/bower_components/angular-google-maps/dist/angular-google-maps.js"></script>
@@ -56,7 +56,7 @@
                         <material-card class="card" ng-repeat="d in destinations" style="background: white;" ng-class="{ active: isActive(d.id), joined: hasJoined(d.id) }" ng-click="setActive(d.id)">
                             <span class="joined-icon"><i class="fa fa-check-circle"></i></span>
                             <h2>{{ d.name }} <span class="badge">{{ d.memberList.length > 0 ? d.memberList.length : 0 }}</span></h2>
-                            <p>{{ d.id }}</p>
+                            <p>{{ typeof(d.address) != 'undefined' ? d.address : '' }}</p>
                             <div ng-if="isActive(d.id)">
                                 <ul class="user-list">
                                     <li ng-repeat="u in d.memberList">
@@ -81,9 +81,21 @@
                             </form>
                         </div>
 
-                        <!-- <material-card class="map" style="background: white;">
-                            <ui-gmap-google-map center="map.center" zoom="map.zoom"></ui-gmap-google-map>
-                        </material-card> -->
+                        <material-card class="card" style="background: white;">
+                            <div id="gmaps">
+                                <input id="gmapsearch" type="text" ng-model="gsearch" googleplaces>
+                                <div class="actions">
+                                    <material-button ng-if="marker.website" class="material-theme-yellow"><a target="_blank" href="{{ marker.website }}">Visit website</a></material-button>
+
+                                    <material-button ng-if="marker.address" class="material-theme-light-blue" ng-click="createRestaurantAndSuggest()">Add</material-button>
+
+                                    <material-button ng-if="marker.address" style="float: right" class="material-theme-green" ng-click="createRestaurantAndSuggest(true)">Add & Suggest</material-button>
+                                </div>
+                                <ui-gmap-google-map center="map.center" zoom="map.zoom">
+                                    <ui-gmap-marker coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id"></ui-gmap-marker>
+                                </ui-gmap-google-map>
+                            </div>
+                        </material-card>
                     </div></material-tab>
                 </material-tabs>
             </material-content>
