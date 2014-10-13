@@ -1,6 +1,6 @@
 body,
 material-tabs > .tabs-content {
-  background: url('/img/kindajean.png');
+  background: url('../img/kindajean.png');
 }
 #header .user img {
   border-radius: 50%;

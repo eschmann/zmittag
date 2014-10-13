@@ -14,7 +14,7 @@ zmittagApp.config(function (localStorageServiceProvider) {
 });
 
 zmittagApp.controller('mainController', function($scope, $log, $filter, $http, $materialToast, md5, localStorageService) {
-    $scope.api = "http://172.27.9.66:8080/Zmittag/api/";
+    $scope.api = "http://localhost:8080/Zmittag/api/";
 
     //$scope.map = {center: {latitude: 40.1451, longitude: -99.6680 }, zoom: 4 };
     $scope.options = {scrollwheel: false, query: "london"};
