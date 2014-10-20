@@ -1,0 +1,15 @@
+
+server:
+  type: simple
+  applicationContextPath: /zmittag
+  connector:
+    type: http
+    port: 8080
+
+
+logging:
+  level: INFO
+  appenders:
+    - type: console
+      threshold: ALL
+      target: stderr
