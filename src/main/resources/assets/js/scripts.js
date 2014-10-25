@@ -13,12 +13,13 @@ zmittagApp.config(function (localStorageServiceProvider) {
     localStorageServiceProvider.setStorageCookie(0, '/');
 });
 
-zmittagApp.controller('mainController', function($scope, $log, $filter, $http, $materialToast, md5, localStorageService) {
+zmittagApp.controller('mainController', function($scope, $log, $filter, $http, $mdToast, md5, localStorageService) {
 	
 	var hostAndPort = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
+    //var hostAndPort = 'http://178.62.175.20:8080';
+
     $scope.api = hostAndPort + "/zmittag/api/";
 
-    //$scope.map = {center: {latitude: 40.1451, longitude: -99.6680 }, zoom: 4 };
     $scope.options = {scrollwheel: false, query: "london"};
     $scope.searchbox = {
         template:'searchbox.tpl.html',
@@ -27,7 +28,10 @@ zmittagApp.controller('mainController', function($scope, $log, $filter, $http, $
     };
 
     $scope.gmaps;
-    $scope.search = '';
+    $scope.search = {
+        archive: null
+    };
+
     $scope.marker = {
         id: 0,
         name: null,
@@ -63,8 +67,8 @@ zmittagApp.controller('mainController', function($scope, $log, $filter, $http, $
                     member: $scope.user.name,
                     email: $scope.user.email
                 }).success(function() {
-                    $materialToast.show({
-                        template: '<material-toast>Success!</material-toast>',
+                    $mdToast.show({
+                        template: '<md-toast>Success!</md-toast>',
                         duration: 2000,
                         position: 'top right'
                     });
@@ -73,8 +77,8 @@ zmittagApp.controller('mainController', function($scope, $log, $filter, $http, $
                         window.location.reload(false);
                     }, 800);
                 }).error(function() {
-                    $materialToast.show({
-                        template: '<material-toast>Whoops. Something went wrong.<br>The destination was created but you did not join.</material-toast>',
+                    $mdToast.show({
+                        template: '<md-toast>Whoops. Something went wrong.<br>The destination was created but you did not join.</md-toast>',
                         duration: 2000,
                         position: 'top right'
                     });
@@ -84,8 +88,8 @@ zmittagApp.controller('mainController', function($scope, $log, $filter, $http, $
                     }, 800);
                 });
             }else {
-                $materialToast.show({
-                    template: '<material-toast>Success!</material-toast>',
+                $mdToast.show({
+                    template: '<md-toast>Success!</md-toast>',
                     duration: 2000,
                     position: 'top right'
                 });
@@ -95,8 +99,8 @@ zmittagApp.controller('mainController', function($scope, $log, $filter, $http, $
                 }, 800);
             }
         }).error(function() {
-            $materialToast.show({
-                template: '<material-toast>Whoops. Something went wrong.<br>Please try again later.</material-toast>',
+            $mdToast.show({
+                template: '<md-toast>Whoops. Something went wrong.<br>Please try again later.</md-toast>',
                 duration: 2000,
                 position: 'top right'
             });
@@ -207,8 +211,8 @@ zmittagApp.controller('mainController', function($scope, $log, $filter, $http, $
             member: $scope.user.name,
             email: $scope.user.email
         }).success(function() {
-            $materialToast.show({
-                template: '<material-toast>Success!</material-toast>',
+            $mdToast.show({
+                template: '<md-toast>Success!</md-toast>',
                 duration: 2000,
                 position: 'top right'
             });
@@ -216,8 +220,8 @@ zmittagApp.controller('mainController', function($scope, $log, $filter, $http, $
                 window.location.reload(false);
             }, 800);
         }).error(function() {
-            $materialToast.show({
-                template: '<material-toast>Whoops. Something went wrong.<br>Please try again later.</material-toast>',
+            $mdToast.show({
+                template: '<md-toast>Whoops. Something went wrong.<br>Please try again later.</md-toast>',
                 duration: 2000,
                 position: 'top right'
             });
@@ -234,10 +238,6 @@ zmittagApp.controller('mainController', function($scope, $log, $filter, $http, $
     }, function() {
         //console.log('geolocation error');
     });
-
-    $scope.search = {
-        archive: ''
-    };
 
     $scope.hasJoined = function(id) {
         for (var i = 0; i < $scope.destinations.length; i++) {
