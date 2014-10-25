@@ -8,7 +8,7 @@ server:
 
 
 logging:
-  level: INFO
+  level: DEBUG
   appenders:
     - type: console
       threshold: ALL
