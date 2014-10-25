@@ -16,6 +16,8 @@ zmittagApp.config(function (localStorageServiceProvider) {
 zmittagApp.controller('mainController', function($scope, $log, $filter, $http, $materialToast, md5, localStorageService) {
 	
 	var hostAndPort = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
+    //var hostAndPort = 'http://178.62.175.20:8080';
+
     $scope.api = hostAndPort + "/zmittag/api/";
 
     //$scope.map = {center: {latitude: 40.1451, longitude: -99.6680 }, zoom: 4 };
