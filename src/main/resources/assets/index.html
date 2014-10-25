@@ -33,27 +33,27 @@
     </head>
     <body ng-app="zmittagApp">
         <div id="main" ng-controller="mainController">
-            <material-content>
-                <material-toolbar id="header" class="material-theme-dark">
-                    <div class="material-toolbar-tools">
+            <md-content>
+                <md-toolbar id="header" class="md-theme-dark">
+                    <div class="md-toolbar-tools">
                         <h2><span>zMittag</span></h2>
                         <span flex></span>
                         <gravatar>
                     </div>
-                </material-toolbar>
-                <material-tabs selected="data.selectedIndex" center>
-                    <material-tab label="JOIN">
-                        <material-card class="form" style="background: white;" ng-hide="!isValidUser" ng-if="!userIsSubmitted()">
+                </md-toolbar>
+                <md-tabs selected="data.selectedIndex" center>
+                    <md-tab label="JOIN">
+                        <md-card class="form" style="background: white;" ng-hide="!isValidUser" ng-if="!userIsSubmitted()">
                             <p>Please provide your name and email address:</p>
                             <form>
-                                <tf-float label="Name" value="user.name" ng-model="user.name" ng-model-onblur></tf-float>
-                                <tf-float label="Email" value="user.email" ng-model="user.email" ng-model-options="{updateOn: 'blur'}"></tf-float>
-                                <material-button class="material-theme-light-blue" ng-click="submitUserCredentials()">
+                                <md-text-float label="Name" value="user.name" ng-model="user.name" ng-model-onblur></md-text-float>
+                                <md-text-float label="Email" value="user.email" ng-model="user.email" ng-model-options="{updateOn: 'blur'}"></md-text-float>
+                                <md-button class="md-theme-light-blue" ng-click="submitUserCredentials()">
                                     Save
-                                </material-button>
+                                </md-button>
                             </form>
-                        </material-card>
-                        <material-card class="card" ng-repeat="d in destinations" style="background: white;" ng-class="{ active: isActive(d.id), joined: hasJoined(d.id) }" ng-click="setActive(d.id)">
+                        </md-card>
+                        <md-card class="card" ng-repeat="d in destinations" style="background: white;" ng-class="{ active: isActive(d.id), joined: hasJoined(d.id) }" ng-click="setActive(d.id)">
                             <span class="joined-icon"><i class="fa fa-check-circle"></i></span>
                             <h2>{{ d.name }} <span class="badge">{{ d.memberList.length > 0 ? d.memberList.length : 0 }}</span></h2>
                             <p>{{ typeof(d.address) != 'undefined' ? d.address : '' }}</p>
@@ -64,20 +64,20 @@
                                         {{ u.name }}
                                     </li>
                                 </ul>
-                                <material-button class="material-theme-green join-group" ng-click="joinGroup(d.id)" ng-if="!hasJoined(d.id)">
+                                <md-button class="md-theme-green join-group" ng-click="joinGroup(d.id)" ng-if="!hasJoined(d.id)">
                                     Join!
-                                </material-button>
+                                </md-button>
                             </div>
-                        </material-card>
-                        <material-whiteframe class="info" layout ng-if="destinations.length == 0" layout-align="center center">
+                        </md-card>
+                        <md-whiteframe class="info" layout ng-if="destinations.length == 0" layout-align="center center">
                             <span>No suggestions, yet. Be the first one!</span>
-                        </material-whiteframe>
+                        </md-whiteframe>
                         <h3 class="recommendations">Recommendations:</h3>
                         <div>
-                             <material-card ng-repeat="r in recommendations" class="card" style="background: white;">
+                             <md-card ng-repeat="r in recommendations" class="card" style="background: white;">
                                 <h2>{{ r.name }} <span class="badge">{{ r.averageRating }}</span></h2>
                                 <span>{{ r.tags }}</span>
-                            </material-card>
+                            </md-card>
                         </div>
                         <h3 class="recommendations">Tags:</h3>
                                                                         <div>
@@ -89,38 +89,38 @@
                                 <br><br>
                             </form>
                             <div>
-                                <material-card ng-repeat="r in tagFilteredRestaurants" class="card" style="background: white;">
+                                <md-card ng-repeat="r in tagFilteredRestaurants" class="card" style="background: white;">
                                     <h2>{{ r.name }} <span class="badge">{{ r.averageRating }}</span></h2>
                                     <span>{{ r.tags }}</span>
-                                </material-card>
+                                </md-card>
                             </div>
                         </div>
-                    </material-tab>
-                    <material-tab label="SUGGEST"><div id="suggest">
+                    </md-tab>
+                    <md-tab label="SUGGEST"><div id="suggest">
                         <div class="search">
                             <form>
-                                <tf-float label="Search archive.." value="search.archive" ng-model="search.archive" ng-model-onblur></tf-float>
+                                <md-text-float label="Search archive.." ng-model="search.archive" ng-model-onblur> </md-text-float>
                             </form>
                         </div>
 
-                        <material-card class="card" style="background: white;">
+                        <md-card class="card" style="background: white;">
                             <div id="gmaps">
                                 <input id="gmapsearch" type="text" ng-model="gsearch" googleplaces>
                                 <div class="actions">
-                                    <material-button ng-if="marker.website" class="material-theme-yellow"><a target="_blank" href="{{ marker.website }}">Visit website</a></material-button>
+                                    <md-button ng-if="marker.website" class="md-theme-yellow"><a target="_blank" href="{{ marker.website }}">Visit website</a></md-button>
 
-                                    <material-button ng-if="marker.address" class="material-theme-light-blue" ng-click="createRestaurantAndSuggest()">Add</material-button>
+                                    <md-button ng-if="marker.address" class="md-theme-light-blue" ng-click="createRestaurantAndSuggest()">Add</md-button>
 
-                                    <material-button ng-if="marker.address" style="float: right" class="material-theme-green" ng-click="createRestaurantAndSuggest(true)">Suggest</material-button>
+                                    <md-button ng-if="marker.address" style="float: right" class="md-theme-green" ng-click="createRestaurantAndSuggest(true)">Suggest</md-button>
                                 </div>
                                 <ui-gmap-google-map center="map.center" zoom="map.zoom">
                                     <ui-gmap-marker coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id"></ui-gmap-marker>
                                 </ui-gmap-google-map>
                             </div>
-                        </material-card>
-                    </div></material-tab>
-                </material-tabs>
-            </material-content>
+                        </md-card>
+                    </div></md-tab>
+                </md-tabs>
+            </md-content>
         </div>
     </body>
 </html>

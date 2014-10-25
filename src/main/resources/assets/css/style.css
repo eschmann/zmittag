@@ -1,5 +1,5 @@
 body,
-material-tabs > .tabs-content {
+md-tabs > .tabs-content {
   background: url('../img/kindajean.png');
 }
 #header .user img {
@@ -25,43 +25,43 @@ material-tabs > .tabs-content {
   background-color: #777777;
   border-radius: 10px;
 }
-material-whiteframe.info {
+md-whiteframe.info {
   background: white;
   margin: 20px 15px;
   padding: 20px;
   color: #0085ff;
   background-color: #f2f9ff;
 }
-material-card {
+md-card {
   position: relative;
 }
-material-card h2,
-material-card p {
+md-card h2,
+md-card p {
   margin: 0;
 }
-material-card .user-list {
+md-card .user-list {
   list-style: none;
   padding: 0;
   margin: 0;
   margin-top: 15px;
 }
-material-card .user-list:after {
+md-card .user-list:after {
   content: "";
   display: block;
   clear: both;
 }
-material-card .user-list li {
+md-card .user-list li {
   float: left;
   text-align: center;
   min-width: 70px;
   padding: 5px 2px;
 }
-material-card .user-list li img {
+md-card .user-list li img {
   border-radius: 50%;
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
 }
-material-card .joined-icon {
+md-card .joined-icon {
   display: none;
   position: absolute;
   width: 30px;
@@ -74,25 +74,25 @@ material-card .joined-icon {
   top: 3px;
   color: #259b00;
 }
-material-card.joined {
+md-card.joined {
   border: 3px solid #259b00;
 }
-material-card.joined .joined-icon {
+md-card.joined .joined-icon {
   display: block;
 }
-material-card .join-group {
+md-card .join-group {
   margin-top: 15px;
   width: 100%;
   padding: 7px 15px;
 }
-material-card.form {
+md-card.form {
   padding: 20px;
 }
-material-card.form p {
+md-card.form p {
   padding: 0;
   margin: 0;
 }
-material-card.form.error {
+md-card.form.error {
   background: red !important;
 }
 #gmaps .actions {
@@ -108,17 +108,17 @@ select {
   padding: 6px 12px;
   margin: 0px 15px;
 }
-material-tabs material-tabs-ink-bar {
+md-tabs md-tabs-ink-bar {
   background: #3f51b5;
   height: 3px;
 }
-material-tabs .tabs-content {
+md-tabs .tabs-content {
   margin-top: 7px;
 }
-material-input-group label {
+md-input-group label {
   font-size: 18px;
 }
-material-input-group input {
+md-input-group input {
   font-size: 24px;
   width: 100%;
 }
@@ -140,6 +140,6 @@ material-input-group input {
 #suggest .search {
   padding: 0px 15px;
 }
-#suggest .search material-input-group {
+#suggest .search md-input-group {
   margin: 0;
 }
