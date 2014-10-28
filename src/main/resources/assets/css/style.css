@@ -1,17 +1,56 @@
 body,
-md-tabs > .tabs-content {
+#content,
+#content .tabs {
   background: url('../img/kindajean.png');
 }
-#header .user img {
+body > md-content {
+  margin: 0 auto;
+  max-width: 768px;
+}
+body > md-content > md-toolbar {
+  background-color: #0081ff;
+  color: white;
+}
+body > md-content > md-toolbar .user img {
   border-radius: 50%;
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
 }
-#main {
-  margin: 0 auto;
-  max-width: 768px;
+body > md-content > md-tabs .tabs-header {
+  background-color: #0081ff;
 }
-.badge {
+body > md-content > md-tabs md-tabs-ink-bar {
+  height: 5px;
+  background: white;
+}
+body > md-content #content {
+  position: relative;
+}
+body > md-content #content .tab md-whiteframe.info {
+  background: white;
+  margin: 20px 15px;
+  padding: 20px;
+  color: #0085ff;
+  background-color: #f2f9ff;
+}
+body > md-content #content .tab .recommendations {
+  margin: 20px 15px;
+  text-transform: uppercase;
+  color: #4285f4;
+  padding-bottom: 5px;
+  border-bottom: 2px solid #4285f4;
+}
+body > md-content #content .tab md-card {
+  position: relative;
+}
+body > md-content #content .tab md-card h2,
+body > md-content #content .tab md-card p {
+  margin: 0;
+}
+body > md-content #content .tab md-card .joined-icon {
+  display: none;
+}
+body > md-content #content .tab md-card .badge {
   display: inline-block;
   min-width: 10px;
   padding: 3px 7px;
@@ -25,44 +64,33 @@ md-tabs > .tabs-content {
   background-color: #777777;
   border-radius: 10px;
 }
-md-whiteframe.info {
-  background: white;
-  margin: 20px 15px;
-  padding: 20px;
-  color: #0085ff;
-  background-color: #f2f9ff;
-}
-md-card {
-  position: relative;
-}
-md-card h2,
-md-card p {
-  margin: 0;
-}
-md-card .user-list {
+body > md-content #content .tab md-card .user-list {
   list-style: none;
   padding: 0;
   margin: 0;
   margin-top: 15px;
 }
-md-card .user-list:after {
+body > md-content #content .tab md-card .user-list:after {
   content: "";
   display: block;
   clear: both;
 }
-md-card .user-list li {
+body > md-content #content .tab md-card .user-list li {
   float: left;
   text-align: center;
   min-width: 70px;
   padding: 5px 2px;
 }
-md-card .user-list li img {
+body > md-content #content .tab md-card .user-list li img {
   border-radius: 50%;
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
 }
-md-card .joined-icon {
-  display: none;
+body > md-content #content .tab md-card.joined {
+  border: 3px solid #259b00;
+}
+body > md-content #content .tab md-card.joined .joined-icon {
+  display: block;
   position: absolute;
   width: 30px;
   height: 30px;
@@ -74,72 +102,47 @@ md-card .joined-icon {
   top: 3px;
   color: #259b00;
 }
-md-card.joined {
-  border: 3px solid #259b00;
-}
-md-card.joined .joined-icon {
-  display: block;
-}
-md-card .join-group {
+body > md-content #content .tab md-card .join-group {
   margin-top: 15px;
   width: 100%;
   padding: 7px 15px;
 }
-md-card.form {
+body > md-content #content .tab md-card.form {
   padding: 20px;
 }
-md-card.form p {
+body > md-content #content .tab md-card.form.error {
+  background: red !important;
+}
+body > md-content #content .tab md-card.form p {
   padding: 0;
   margin: 0;
 }
-md-card.form.error {
-  background: red !important;
-}
-#gmaps .actions {
+body > md-content #content .tab #gmaps .actions {
   padding: 8px 15px;
 }
-#gmaps #gmapsearch {
+body > md-content #content .tab #gmaps #gmapsearch {
   background: white;
   background: rgba(255, 255, 255, 0.85);
   padding: 8px 15px;
   width: 100%;
 }
-select {
-  padding: 6px 12px;
-  margin: 0px 15px;
+body > md-content #content .tab .angular-google-map-container {
+  height: 400px;
 }
-md-tabs md-tabs-ink-bar {
-  background: #3f51b5;
-  height: 3px;
-}
-md-tabs .tabs-content {
-  margin-top: 7px;
-}
-md-input-group label {
+body > md-content #content .tab md-input-group label {
   font-size: 18px;
 }
-md-input-group input {
+body > md-content #content .tab md-input-group input {
   font-size: 24px;
   width: 100%;
 }
-.angular-google-map-container {
-  height: 400px;
+body > md-content #content .tab select {
+  padding: 6px 12px;
+  margin: 0px 15px;
 }
-.tabs-content .card: {
-  background: white !important;
-  background-color: white !important;
-  background: rgba(255, 255, 255, 0.85);
-}
-.recommendations {
-  margin: 20px 15px;
-  text-transform: uppercase;
-  color: #4285f4;
-  padding-bottom: 5px;
-  border-bottom: 2px solid #4285f4;
-}
-#suggest .search {
+body > md-content #content .tab .search {
   padding: 0px 15px;
 }
-#suggest .search md-input-group {
+body > md-content #content .tab .search md-input-group {
   margin: 0;
 }
