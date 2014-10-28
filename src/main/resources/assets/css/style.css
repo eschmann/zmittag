@@ -8,7 +8,7 @@ body > md-content {
   max-width: 768px;
 }
 body > md-content > md-toolbar {
-  background-color: #0081ff;
+  background-color: #3f51b5;
   color: white;
 }
 body > md-content > md-toolbar .user img {
@@ -17,7 +17,7 @@ body > md-content > md-toolbar .user img {
   -webkit-border-radius: 50%;
 }
 body > md-content > md-tabs .tabs-header {
-  background-color: #0081ff;
+  background-color: #3f51b5;
 }
 body > md-content > md-tabs md-tab {
   border: 0;
