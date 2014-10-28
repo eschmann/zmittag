@@ -19,6 +19,9 @@ body > md-content > md-toolbar .user img {
 body > md-content > md-tabs .tabs-header {
   background-color: #0081ff;
 }
+body > md-content > md-tabs md-tab {
+  border: 0;
+}
 body > md-content > md-tabs md-tabs-ink-bar {
   height: 5px;
   background: white;
