@@ -124,19 +124,7 @@ zmittagApp.controller('mainController', function($scope, $log, $filter, $http, $
 
         $scope.map.zoom = 12;
         $scope.map.center = input.coords;
-
-
-        // $scope.marker.events = {
-        //     click: function(marker, eventName, model, arguments) {
-        //         console.log(marker);
-        //     }
-        // }
-        // console.log(input);
     };
-
-    // $scope.testing = function() {
-    //     console.log('testing');
-    // };
 
     $scope.destinations = [];
     $http.get($scope.api+'groups/list/').success(function(data) {
@@ -199,7 +187,6 @@ zmittagApp.controller('mainController', function($scope, $log, $filter, $http, $
             localStorageService.set('user.submitted', true);
             $scope.user.submitted = true;
         };
-        //console.log($scope.user);
     }
 
     $scope.md5 = function(value) {
