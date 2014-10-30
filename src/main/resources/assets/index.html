@@ -29,21 +29,31 @@
         <!-- angular app -->
         <script src="js/scripts.js"></script>
         <!-- font and icons -->
-        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="bower_components/fontawesome/css/font-awesome.min.css">
     </head>
     <body ng-app="zmittagApp">
-        <div id="main" ng-controller="mainController">
-            <md-content>
-                <md-toolbar id="header" class="md-theme-dark">
+            <md-content ng-controller="mainController">
+                <!-- Header -->
+                <md-toolbar>
                     <div class="md-toolbar-tools">
                         <h2><span>zMittag</span></h2>
                         <span flex></span>
                         <gravatar>
                     </div>
                 </md-toolbar>
-                <md-tabs selected="data.selectedIndex" center>
-                    <md-tab label="JOIN">
-                        <md-card class="form" style="background: white;" ng-hide="!isValidUser" ng-if="!userIsSubmitted()">
+
+                <!-- Tab Navigation -->
+                <md-tabs selected="nav.current">
+                    <md-tab label="JOIN"></md-tab>
+                    <md-tab label="Suggest"></md-tab>
+                </md-tabs>
+
+                <!-- Tabbed Content -->
+                <div id="content" class="animate-switch-container" ng-switch on="nav.current">
+                    <!-- Join Tab -->
+                    <div class="tab tab-join animate-switch" ng-switch-when="0" md-swipe-left="next()" md-swipte-right="previous()">
+                        <!-- User Info -->
+                        <md-card class="user-info form" style="background: white;" ng-hide="!isValidUser" ng-if="!user.submitted">
                             <p>Please provide your name and email address:</p>
                             <form>
                                 <md-text-float label="Name" value="user.name" ng-model="user.name" ng-model-onblur></md-text-float>
@@ -53,6 +63,8 @@
                                 </md-button>
                             </form>
                         </md-card>
+
+                        <!-- Current Groups -->
                         <md-card class="card" ng-repeat="d in destinations" style="background: white;" ng-class="{ active: isActive(d.id), joined: hasJoined(d.id) }" ng-click="setActive(d.id)">
                             <span class="joined-icon"><i class="fa fa-check-circle"></i></span>
                             <h2>{{ d.name }} <span class="badge">{{ d.memberList.length > 0 ? d.memberList.length : 0 }}</span></h2>
@@ -69,18 +81,23 @@
                                 </md-button>
                             </div>
                         </md-card>
+
                         <md-whiteframe class="info" layout ng-if="destinations.length == 0" layout-align="center center">
                             <span>No suggestions, yet. Be the first one!</span>
                         </md-whiteframe>
-                        <h3 class="recommendations">Recommendations:</h3>
+
+                        <!-- Recommendations -->
+                        <h3 class="section-title">Recommendations:</h3>
                         <div>
                              <md-card ng-repeat="r in recommendations" class="card" style="background: white;">
                                 <h2>{{ r.name }} <span class="badge">{{ r.averageRating }}</span></h2>
                                 <span>{{ r.tags }}</span>
                             </md-card>
                         </div>
-                        <h3 class="recommendations">Tags:</h3>
-                                                                        <div>
+
+                        <!-- Tags -->
+                        <h3 class="section-title">Tags:</h3>
+                        <div>
                             <form>
                                 <select ng-model="searchTag" ng-change="searchTagChanged(searchTag)">
                                     <option value="">...</option>
@@ -95,14 +112,18 @@
                                 </md-card>
                             </div>
                         </div>
-                    </md-tab>
-                    <md-tab label="SUGGEST"><div id="suggest">
+                    </div>
+
+                    <!-- Suggest Tab -->
+                    <div class="tab tab-suggest animate-switch" ng-switch-when="1" md-swipe-left="next()" md-swipte-right="previous()">
+                        <!-- Archive Search -->
                         <div class="search">
                             <form>
                                 <md-text-float label="Search archive.." ng-model="search.archive" ng-model-onblur> </md-text-float>
                             </form>
                         </div>
 
+                        <!-- Google Maps Search -->
                         <md-card class="card" style="background: white;">
                             <div id="gmaps">
                                 <input id="gmapsearch" type="text" ng-model="gsearch" googleplaces>
@@ -118,9 +139,8 @@
                                 </ui-gmap-google-map>
                             </div>
                         </md-card>
-                    </div></md-tab>
-                </md-tabs>
+                    </div>
+                </div>
             </md-content>
-        </div>
     </body>
 </html>
