@@ -43,17 +43,17 @@
                 </md-toolbar>
 
                 <!-- Tab Navigation -->
-                <md-tabs selected="data.selectedIndex">
+                <md-tabs selected="nav.current">
                     <md-tab label="JOIN"></md-tab>
                     <md-tab label="Suggest"></md-tab>
                 </md-tabs>
 
                 <!-- Tabbed Content -->
-                <div id="content" class="animate-switch-container" ng-switch on="data.selectedIndex">
+                <div id="content" class="animate-switch-container" ng-switch on="nav.current">
                     <!-- Join Tab -->
                     <div class="tab tab-join animate-switch" ng-switch-when="0" md-swipe-left="next()" md-swipte-right="previous()">
                         <!-- User Info -->
-                        <md-card class="user-info form" style="background: white;" ng-hide="!isValidUser" ng-if="!userIsSubmitted()">
+                        <md-card class="user-info form" style="background: white;" ng-hide="!isValidUser" ng-if="!user.submitted">
                             <p>Please provide your name and email address:</p>
                             <form>
                                 <md-text-float label="Name" value="user.name" ng-model="user.name" ng-model-onblur></md-text-float>
