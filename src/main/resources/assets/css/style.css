@@ -26,6 +26,10 @@ body > md-content > md-tabs md-tabs-ink-bar {
   height: 5px;
   background: white;
 }
+body > md-content md-button .md-button-inner {
+  padding: 6px 12px;
+  min-width: 100px;
+}
 body > md-content #content {
   position: relative;
 }
@@ -36,7 +40,7 @@ body > md-content #content .tab md-whiteframe.info {
   color: #0085ff;
   background-color: #f2f9ff;
 }
-body > md-content #content .tab .recommendations {
+body > md-content #content .tab .section-title {
   margin: 20px 15px;
   text-transform: uppercase;
   color: #4285f4;
@@ -116,9 +120,18 @@ body > md-content #content .tab md-card.form {
 body > md-content #content .tab md-card.form.error {
   background: red !important;
 }
+body > md-content #content .tab md-card.form:after {
+  content: "";
+  display: block;
+  clear: both;
+}
 body > md-content #content .tab md-card.form p {
   padding: 0;
   margin: 0;
+}
+body > md-content #content .tab md-card.user-info md-button {
+  float: right;
+  margin-top: 7px;
 }
 body > md-content #content .tab #gmaps .actions {
   padding: 8px 15px;

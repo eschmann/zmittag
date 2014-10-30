@@ -30,6 +30,11 @@ body > md-content {
         }
     }
 
+    md-button .md-button-inner {
+        padding: 6px 12px;
+        min-width: 100px;
+    }
+
     #content {
         position: relative;
         //overflow-x: hidden;
@@ -46,7 +51,7 @@ body > md-content {
                 background-color: rgb(242, 249, 255);
             }
 
-            .recommendations {
+            .section-title {
                 margin: 20px 15px;
                 text-transform: uppercase;
                 color: @blue-light;
@@ -117,10 +122,18 @@ body > md-content {
                 &.form {
                     padding: 20px;
                     &.error { background: red !important; }
+                    .clearfix();
 
                     p {
                         padding: 0;
                         margin: 0;
+                    }
+                }
+
+                &.user-info {
+                    md-button {
+                        float: right;
+                        margin-top: 7px;
                     }
                 }
             }

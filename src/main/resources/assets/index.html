@@ -52,8 +52,8 @@
                 <div id="content" class="animate-switch-container" ng-switch on="data.selectedIndex">
                     <!-- Join Tab -->
                     <div class="tab tab-join animate-switch" ng-switch-when="0" md-swipe-left="next()" md-swipte-right="previous()">
-                        <!-- user Info -->
-                        <md-card class="form" style="background: white;" ng-hide="!isValidUser" ng-if="!userIsSubmitted()">
+                        <!-- User Info -->
+                        <md-card class="user-info form" style="background: white;" ng-hide="!isValidUser" ng-if="!userIsSubmitted()">
                             <p>Please provide your name and email address:</p>
                             <form>
                                 <md-text-float label="Name" value="user.name" ng-model="user.name" ng-model-onblur></md-text-float>
@@ -87,14 +87,16 @@
                         </md-whiteframe>
 
                         <!-- Recommendations -->
-                        <h3 class="recommendations">Recommendations:</h3>
+                        <h3 class="section-title">Recommendations:</h3>
                         <div>
                              <md-card ng-repeat="r in recommendations" class="card" style="background: white;">
                                 <h2>{{ r.name }} <span class="badge">{{ r.averageRating }}</span></h2>
                                 <span>{{ r.tags }}</span>
                             </md-card>
                         </div>
-                        <h3 class="recommendations">Tags:</h3>
+
+                        <!-- Tags -->
+                        <h3 class="section-title">Tags:</h3>
                         <div>
                             <form>
                                 <select ng-model="searchTag" ng-change="searchTagChanged(searchTag)">
@@ -111,6 +113,7 @@
                             </div>
                         </div>
                     </div>
+
                     <!-- Suggest Tab -->
                     <div class="tab tab-suggest animate-switch" ng-switch-when="1" md-swipe-left="next()" md-swipte-right="previous()">
                         <!-- Archive Search -->

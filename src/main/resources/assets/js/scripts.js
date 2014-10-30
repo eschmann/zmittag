@@ -16,7 +16,7 @@ zmittagApp.config(function (localStorageServiceProvider) {
 zmittagApp.controller('mainController', function($scope, $log, $filter, $http, $mdToast, md5, localStorageService) {
 	
 	var hostAndPort = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
-    //var hostAndPort = 'http://178.62.175.20:8080';
+    var hostAndPort = 'http://178.62.175.20:8080';
 
     $scope.api = hostAndPort + "/zmittag/api/";
 
@@ -134,7 +134,7 @@ zmittagApp.controller('mainController', function($scope, $log, $filter, $http, $
     $scope.user = {
         "id": null,
         "name": null,
-        "email": '',
+        "email": null,
         "submitted": false
     };
 
@@ -142,7 +142,7 @@ zmittagApp.controller('mainController', function($scope, $log, $filter, $http, $
         $scope.user = {
             "id": localStorageService.get('user.id'),
             "name": localStorageService.get('user.name'),
-            "email": localStorageService.get('user.email') == null ? '' : localStorageService.get('user.email'),
+            "email": localStorageService.get('user.email') == null ? null : localStorageService.get('user.email'),
             "submitted": localStorageService.get('user.submitted') == null ? false : true
         };
     }
@@ -214,7 +214,6 @@ zmittagApp.controller('mainController', function($scope, $log, $filter, $http, $
             });
         });
     };
-
     
     navigator.geolocation.getCurrentPosition(function(position) {
         $scope.map.center = {
