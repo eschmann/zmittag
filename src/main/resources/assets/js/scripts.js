@@ -154,113 +154,148 @@ zmittagApp.controller('mainController', function($scope, $log, $filter, $http, $
         if (reload) { window.setTimeout(function() { window.location.reload(false); }, 800); };
     }
 
-    // TODO:
+    //
+    //  Archive
+    //
 
-    $scope.options = {scrollwheel: false, query: "london"};
-    $scope.searchbox = {
-        template:'searchbox.tpl.html',
-        position:'top-center',
-        events: "places_changed: 'testing()'"
-    };
-
-    $scope.gmaps;
-    $scope.search = {
-        archive: null
-    };
-
-    $scope.marker = {
-        id: 0,
-        name: null,
-        address: null,
-        coords: {
-            latitude: null,
-            longitude: null
-        },
-        location: [null, null],
-        website: null
-    };
-
-    $scope.map = {
-        center: {
-            latitude: 45,
-            longitude: -73
-        },
-        zoom: 8
-    };
-
-    $scope.createRestaurantAndSuggest = function(flag) {
-        $http.post(api+'restaurants/add', {
-            name: $scope.marker.name,
-            latitude: $scope.marker.coords.latitude,
-            longitude: $scope.marker.coords.longitude,
-            address: $scope.marker.address,
-            url: $scope.marker.website,
-            tags: []
-        }).success(function() {
-            if (flag) {
-                $http.post(api+'groups/add', {
-                    name: $scope.marker.name,
-                    member: $scope.user.name,
-                    email: $scope.user.email
-                }).success(function() {
-                    triggerToast('Success!', true);
-                }).error(function() {
-                    triggerToast('Whoops. Something went wrong.<br>The destination was created but you did not join.', true);
-                });
-            }else {
-                triggerToast('Success!', true);
-            }
-        }).error(function() {
-            triggerToast('Whoops. Something went wrong.<br>Please try again later.');
-        });
-    };
-
-    $scope.updateMap = function(input) {
-        if (!input) { return; };
-
-        $scope.marker = input;
-        $scope.marker.id = 0;
-        $scope.marker.options = {
-            title: input.name,
-            animation: 'DROP',
-            labelContent: $scope.marker.name,
-            labelStyle: {
-                zIndex: 9999
-            }
-        };
-
-        $scope.map.zoom = 12;
-        $scope.map.center = input.coords;
-    };
-
-    navigator.geolocation.getCurrentPosition(function(position) {
-        $scope.map.center = {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude
-        };
-        $scope.$apply();
-    }, function() {
-        //console.log('geolocation error');
+    $scope.archive = [];
+    $http.get(api+'restaurants/list/').success(function(data) {
+        $scope.archive = data;
     });
 
-    $scope.searchRestaurants = function(pattern) {
-        $http.post(api+'restaurants/searchByName', {
-            searchPattern: pattern
-        }).success(function(data) {
-            $scope.search.results = data;
-        }).error(function(){
-            $scope.search.results = [];
-        });     
-    };
+    // $scope.suggestGroup = function() {
+    //     $http.post(api+'groups/add', {
+    //         name: $scope.marker.name,
+    //         member: $scope.user.name,
+    //         email: $scope.user.email
+    //     }).success(function() {
+    //         triggerToast('Success!', true);
+    //     }).error(function() {
+    //         triggerToast('Whoops. Something went wrong.<br>The destination was created but you did not join.', true);
+    //     });
+    // };
 
-    $scope.tagFilteredRestaurants = [];
-    $scope.searchTagChanged = function(tag) {
-        $http.post(api+'restaurants/ensureTag', {
-            searchTag: tag
-        }).success(function(data) {
-            $scope.tagFilteredRestaurants = data;
-        });     
-    };
+    // $scope.joinGroup = function(id) {
+    //     $http.post(api+'groups/'+id+'/join', {
+    //         member: $scope.user.name,
+    //         email: $scope.user.email
+    //     }).success(function() {
+    //         triggerToast('Success!', true);
+    //     }).error(function() {
+    //         triggerToast('Whoops. Something went wrong.<br>Please try again later.');
+    //     });
+    // };
+
+
+
+
+    // TODO:
+
+    // $scope.options = {scrollwheel: false, query: "london"};
+    // $scope.searchbox = {
+    //     template:'searchbox.tpl.html',
+    //     position:'top-center',
+    //     events: "places_changed: 'testing()'"
+    // };
+
+    // $scope.gmaps;
+    // $scope.search = {
+    //     archive: null
+    // };
+
+    // $scope.marker = {
+    //     id: 0,
+    //     name: null,
+    //     address: null,
+    //     coords: {
+    //         latitude: null,
+    //         longitude: null
+    //     },
+    //     location: [null, null],
+    //     website: null
+    // };
+
+    // $scope.map = {
+    //     center: {
+    //         latitude: 45,
+    //         longitude: -73
+    //     },
+    //     zoom: 8
+    // };
+
+    // $scope.createRestaurantAndSuggest = function(flag) {
+    //     $http.post(api+'restaurants/add', {
+    //         name: $scope.marker.name,
+    //         latitude: $scope.marker.coords.latitude,
+    //         longitude: $scope.marker.coords.longitude,
+    //         address: $scope.marker.address,
+    //         url: $scope.marker.website,
+    //         tags: []
+    //     }).success(function() {
+    //         if (flag) {
+    //             $http.post(api+'groups/add', {
+    //                 name: $scope.marker.name,
+    //                 member: $scope.user.name,
+    //                 email: $scope.user.email
+    //             }).success(function() {
+    //                 triggerToast('Success!', true);
+    //             }).error(function() {
+    //                 triggerToast('Whoops. Something went wrong.<br>The destination was created but you did not join.', true);
+    //             });
+    //         }else {
+    //             triggerToast('Success!', true);
+    //         }
+    //     }).error(function() {
+    //         triggerToast('Whoops. Something went wrong.<br>Please try again later.');
+    //     });
+    // };
+
+    // $scope.updateMap = function(input) {
+    //     if (!input) { return; };
+
+    //     $scope.marker = input;
+    //     $scope.marker.id = 0;
+    //     $scope.marker.options = {
+    //         title: input.name,
+    //         animation: 'DROP',
+    //         labelContent: $scope.marker.name,
+    //         labelStyle: {
+    //             zIndex: 9999
+    //         }
+    //     };
+
+    //     $scope.map.zoom = 12;
+    //     $scope.map.center = input.coords;
+    // };
+
+    // navigator.geolocation.getCurrentPosition(function(position) {
+    //     $scope.map.center = {
+    //         latitude: position.coords.latitude,
+    //         longitude: position.coords.longitude
+    //     };
+    //     $scope.$apply();
+    // }, function() {
+    //     //console.log('geolocation error');
+    // });
+
+    // $scope.searchRestaurants = function(pattern) {
+    //     $http.post(api+'restaurants/searchByName', {
+    //         searchPattern: pattern
+    //     }).success(function(data) {
+    //         $scope.search.results = data;
+    //     }).error(function(){
+    //         $scope.search.results = [];
+    //     });     
+    // };
+
+    // $scope.tagFilteredRestaurants = [];
+    // $scope.searchTagChanged = function(tag) {
+    //     $http.post(api+'restaurants/ensureTag', {
+    //         searchTag: tag
+    //     }).success(function(data) {
+    //         $scope.tagFilteredRestaurants = data;
+    //     });     
+    // };
 });
 
 //

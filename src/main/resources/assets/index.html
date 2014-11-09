@@ -123,8 +123,18 @@
                             </form>
                         </div>
 
+                        <md-card class="card" ng-repeat="d in archive" style="background: white;" ng-class="{ active: isActive(d.id) }" ng-click="setActive(d.id)">
+                            <h2>{{ d.name }}</h2>
+                            <p>{{ typeof(d.address) != 'undefined' ? d.address : '' }}</p>
+                            <div ng-if="isActive(d.id)">
+                                <md-button class="md-theme-green suggest-group" ng-click="suggestGroup(d.id)" ng-if="!isSuggested(d.id)">
+                                    SUGGEST
+                                </md-button>
+                            </div>
+                        </md-card>
+
                         <!-- Google Maps Search -->
-                        <md-card class="card" style="background: white;">
+                        <!-- <md-card class="card" style="background: white;">
                             <div id="gmaps">
                                 <input id="gmapsearch" type="text" ng-model="gsearch" googleplaces>
                                 <div class="actions">
@@ -138,7 +148,7 @@
                                     <ui-gmap-marker coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id"></ui-gmap-marker>
                                 </ui-gmap-google-map>
                             </div>
-                        </md-card>
+                        </md-card> -->
                     </div>
                 </div>
             </md-content>
