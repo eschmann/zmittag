@@ -123,7 +123,7 @@
                             </form>
                         </div>
 
-                        <md-card class="card" ng-repeat="d in archive" style="background: white;" ng-class="{ active: isActive(d.id) }" ng-click="setActive(d.id)">
+                        <md-card class="card" ng-repeat="d in archive| filter:search.archive" style="background: white;" ng-class="{ active: isActive(d.id) }" ng-click="setActive(d.id)">
                             <h2>{{ d.name }}</h2>
                             <p>{{ typeof(d.address) != 'undefined' ? d.address : '' }}</p>
                             <div ng-if="isActive(d.id)">
